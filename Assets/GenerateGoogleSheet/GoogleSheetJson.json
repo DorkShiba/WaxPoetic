@@ -1,0 +1,50 @@
+{
+  "Class1": [
+    {
+      "IndexInt": 1,
+      "Var1Float": 0.5,
+      "Var2Bool": true
+    },
+    {
+      "IndexInt": 2,
+      "Var1Float": 1.5,
+      "Var2Bool": false
+    },
+    {
+      "IndexInt": 3,
+      "Var1Float": 2.9,
+      "Var2Bool": false
+    }
+  ],
+  "Class2": [
+    {
+      "IndexInt": 1,
+      "Var1String": "Hi",
+      "Var2Float": 0.1
+    },
+    {
+      "IndexInt": 2,
+      "Var1String": "Hello World",
+      "Var2Float": 1.4
+    },
+    {
+      "IndexInt": 3,
+      "Var1String": "Yonsei",
+      "Var2Float": 9.8
+    }
+  ],
+  "Note": [
+    {
+      "This": "is"
+    },
+    {
+      "This": "Note"
+    },
+    {
+      "This": "For"
+    },
+    {
+      "This": "Programmer"
+    }
+  ]
+}

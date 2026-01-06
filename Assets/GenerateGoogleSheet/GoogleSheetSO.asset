@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5880d70e571d57244baded4866da05d5, type: 3}
+  m_Name: GoogleSheetSO
+  m_EditorClassIdentifier: Assembly-CSharp::GoogleSheetSO
+  Class1List:
+  - IndexInt: 1
+    Var1Float: 0.5
+    Var2Bool: 1
+  - IndexInt: 2
+    Var1Float: 1.5
+    Var2Bool: 0
+  - IndexInt: 3
+    Var1Float: 2.9
+    Var2Bool: 0
+  Class2List:
+  - IndexInt: 1
+    Var1String: Hi
+    Var2Float: 0.1
+  - IndexInt: 2
+    Var1String: Hello World
+    Var2Float: 1.4
+  - IndexInt: 3
+    Var1String: Yonsei
+    Var2Float: 9.8
