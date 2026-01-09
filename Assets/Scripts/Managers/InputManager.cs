@@ -10,11 +10,11 @@ public class InputManager {
     public void EnableMove(bool enable) {
         _canMove = enable;
     }
-    public bool CheckInput() {
+    public bool CheckInput(Define.InputType inputType, bool isTrigger) {
         return false;
     }
 
-    public void OnUpdate(Define.InputType inputType, bool isTrigger)
+    public void OnUpdate()
     {
         
     }
