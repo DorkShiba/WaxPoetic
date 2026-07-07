@@ -4,7 +4,23 @@ public class Define
 {
     public enum InputType
     {
-        
+        Left,
+        Right,
+        Up,
+        Down,
+        Guard,
+        Dodge,
+        WeakAttack,
+        StrongAttack,
+        Interact,
+        Menu
+    }
+    public enum AttackType
+    {
+        Skill1 = 0,
+        Skill2 = 1,
+        Skill3 = 2,
+        Skill4 = 3
     }
 
     public enum SceneType

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class AnimationManager
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Animator playerAnimator;        // 애니메이터 참조
+    
+    void Init()
     {
         
     }

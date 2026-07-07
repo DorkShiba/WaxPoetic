@@ -8,33 +8,41 @@ public class Managers : MonoBehaviour
     static Managers s_instance;
     private static Managers Instance { get { Init(); return s_instance; }}
 
-    readonly InputManager _input = new();
+    InputManager _input;
     public static InputManager Input { get { return Instance._input; }}
 
-    readonly ResourceManager _resource = new();
+    ResourceManager _resource = new();
     public static ResourceManager Resource { get { return Instance._resource; }}
 
-    readonly SoundManager _sound = new();
+    SoundManager _sound = new();
     public static SoundManager Sound { get { return Instance._sound; }}
 
-    readonly UIManager _ui = new();
+    UIManager _ui = new();
     public static UIManager UI { get { return Instance._ui; }}
 
-    readonly AnimationManager _animation = new();
+    AnimationManager _animation = new();
     public static AnimationManager Animation { get { return Instance._animation; }}
 
-    readonly DataManager _data = new();
+    DataManager _data = new();
     public static DataManager Data { get { return Instance._data; }}
+
+    public static Inventory Inventory { get; private set; } = new Inventory();
     #endregion
 
     void Start()
+    {
+
+    }
+
+    void Awake()
     {
         Init();
     }
 
     void Update()
     {
-        _input.OnUpdate();
+        if (_input != null)
+            _input.OnUpdate();
     }
 
     static void Init()
@@ -50,6 +58,8 @@ public class Managers : MonoBehaviour
 
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
+
+            s_instance._input = new InputManager();
         }
     }
 }
