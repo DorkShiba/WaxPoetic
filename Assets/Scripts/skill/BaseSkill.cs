@@ -13,9 +13,8 @@ public abstract class BaseSkill
 
     public bool IsOnCooldown { get; protected set; }
 
-    // Override in subclasses
     protected abstract float Cooldown { get; }
-    protected abstract string AnimTrigger { get; }
+    protected abstract int AnimState { get; }  // int value for the AnimState parameter
 
     public BaseSkill(Animator animator, HitboxController hitbox, PlayerData playerData)
     {
@@ -24,24 +23,23 @@ public abstract class BaseSkill
         PlayerData = playerData;
     }
 
-    /// <summary>
-    /// Entry point called by AttackController. Handles cooldown gating.
-    /// </summary>
     public IEnumerator Execute(MonoBehaviour runner)
     {
         if (IsOnCooldown) yield break;
 
         IsOnCooldown = true;
-        Animator.SetTrigger(AnimTrigger);
+        OnBeforeRoutine();
+
+        Animator.SetInteger("AnimState", AnimState);
 
         yield return runner.StartCoroutine(SkillRoutine());
 
+        Animator.SetInteger("AnimState", 0);  // back to idle
         yield return new WaitForSeconds(Cooldown);
         IsOnCooldown = false;
     }
 
-    /// <summary>
-    /// The actual skill logic: when to open/close hitboxes, delays, etc.
-    /// </summary>
+    protected virtual void OnBeforeRoutine() { }
+
     protected abstract IEnumerator SkillRoutine();
 }

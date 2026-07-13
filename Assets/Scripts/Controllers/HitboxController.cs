@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,11 @@ public class HitboxController : MonoBehaviour
     [SerializeField] private Collider2D hitbox;  // the trigger collider on this child object
 
     private float _damage;
+    private float _knockbackForce;
+    private float _hitStopDuration;
+    private float _cameraShakeIntensity;
+    private Coroutine _hitStopCoroutine;
+
     private HashSet<GameObject> _alreadyHit = new();  // prevents hitting the same enemy twice per swing
 
     void Awake()
@@ -24,10 +30,13 @@ public class HitboxController : MonoBehaviour
     /// <summary>
     /// Call from Animation Event (or AttackController) to open the hitbox.
     /// </summary>
-    public void EnableHitbox(float damage)
+    public void EnableHitbox(float damage, float knockbackForce = 2f, float hitStopDuration = 0.05f, float cameraShakeIntensity = 0.05f)
     {
-        Debug.Log($"[Hitbox] Enabled with {damage} dmg");
+        Debug.Log($"[Hitbox] Enabled with {damage} dmg, KB: {knockbackForce}, HitStop: {hitStopDuration}, Shake: {cameraShakeIntensity}");
         _damage = damage;
+        _knockbackForce = knockbackForce;
+        _hitStopDuration = hitStopDuration;
+        _cameraShakeIntensity = cameraShakeIntensity;
         _alreadyHit.Clear();
         hitbox.enabled = true;
     }
@@ -50,8 +59,52 @@ public class HitboxController : MonoBehaviour
         _alreadyHit.Add(other.gameObject);
 
         IDamageable damageable = other.GetComponent<IDamageable>();
-        damageable?.TakeDamage(_damage);
+        if (damageable != null)
+        {
+            Vector2 hitPoint = other.ClosestPoint(transform.position);
+            Vector2 attackerPos = transform.parent != null ? (Vector2)transform.parent.position : (Vector2)transform.position;
+            Vector2 knockbackDirection = ((Vector2)other.transform.position - attackerPos).normalized;
 
-        Debug.Log($"[Hitbox] Hit {other.gameObject.name} for {_damage} dmg");
+            DamageInfo damageInfo = new DamageInfo
+            {
+                damage = _damage,
+                hitPoint = hitPoint,
+                knockbackDirection = knockbackDirection,
+                knockbackForce = _knockbackForce,
+                hitStopDuration = _hitStopDuration,
+                cameraShakeIntensity = _cameraShakeIntensity,
+                attacker = transform.parent != null ? transform.parent.gameObject : gameObject
+            };
+
+            damageable.TakeDamage(damageInfo);
+            Debug.Log($"[Hitbox] Hit {other.gameObject.name} for {damageInfo.damage} dmg");
+
+            // Apply camera shake if any
+            CameraController cam = Camera.main != null ? Camera.main.GetComponent<CameraController>() : null;
+            if (cam != null && _cameraShakeIntensity > 0f)
+            {
+                cam.Shake(_hitStopDuration + 0.1f, _cameraShakeIntensity);
+            }
+
+            // Apply hit stop
+            ApplyHitStop(_hitStopDuration);
+        }
+    }
+
+    private void ApplyHitStop(float duration)
+    {
+        if (duration <= 0f) return;
+        if (_hitStopCoroutine != null)
+            StopCoroutine(_hitStopCoroutine);
+        _hitStopCoroutine = StartCoroutine(HitStopRoutine(duration));
+    }
+
+    private IEnumerator HitStopRoutine(float duration)
+    {
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(duration);
+        Time.timeScale = originalTimeScale;
+        _hitStopCoroutine = null;
     }
 }

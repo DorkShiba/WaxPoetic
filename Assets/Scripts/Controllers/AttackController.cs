@@ -24,10 +24,10 @@ public class AttackController : MonoBehaviour
 
         _skills = new BaseSkill[]
         {
-            _swingSkill,                                        // Skill1 (Z)
-            new BiteSkill(animator, hitbox, playerData),        // Skill2
-            new RoarSkill(animator, hitbox, playerData),        // Skill3
-            new JumpSlamSkill(animator, hitbox, playerData)     // Skill4
+            _swingSkill,
+            new BiteSkill(animator, hitbox, playerData),
+            new RoarSkill(animator, hitbox, playerData),
+            new JumpSlamSkill(animator, hitbox, playerData)
         };
 
         Managers.Input.OnAttackPerformed -= OnAttackPerformed;
@@ -41,16 +41,22 @@ public class AttackController : MonoBehaviour
 
     void Update()
     {
-        _swingSkill.OnUpdate();
     }
 
     private void OnAttackPerformed(int skillIndex)
     {
         if (skillIndex < 0 || skillIndex >= _skills.Length) return;
 
-        // If mid-combo and a different skill is pressed, cancel the combo first
+        if (skillIndex == 0 && _swingSkill.IsComboActive)
+        {
+            // Z pressed during combo — buffer it, don't start a new coroutine
+            _swingSkill.BufferNextCombo();
+            return;
+        }
+
         if (skillIndex != 0 && _swingSkill.IsComboActive)
         {
+            // Different skill pressed — cancel combo first
             _swingSkill.CancelCombo();
             hitbox.DisableHitbox();
             if (_currentSkill != null) StopCoroutine(_currentSkill);
