@@ -19,12 +19,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;   // 애니메이터 참조
 
     private DashController _dashController;
+    private Rigidbody2D _rb;
     // Hook this up to your damage system later —
     // when true, incoming attacks should be ignored
     public bool IsInvincible => _dashController != null && _dashController.IsDashing;
     void Awake()
     {
         _dashController = GetComponent<DashController>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -48,10 +50,17 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isMove", moveDirection != Vector2.zero); // 이동 여부에 따라 애니메이션 전환
         flip();
 
-        transform.Translate(moveDirection * Time.deltaTime * playerData.Spd);
         playerData.CurrPosition = transform.position;  // 현재 위치 업데이트 (맵 상의 좌표)
 
         TryLootNearbyItems();
+    }
+
+    void FixedUpdate()
+    {
+        if (_dashController != null && _dashController.IsDashing) return;
+
+        // 물리 연산을 통한 이동 (떨림 현상 방지)
+        _rb.MovePosition(_rb.position + moveDirection * Time.fixedDeltaTime * playerData.Spd);
     }
 
     void flip() {
