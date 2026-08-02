@@ -7,10 +7,13 @@ public class InputManager {
     PlayerInput _playerInput = null;
 
     public Vector2 MoveDirection { get; private set; }
+    public Vector2 MousePosition { get; private set; }
 
     public Action OnInteractPerformed;
     public Action OnAvoidPerformed;
     public Action<int> OnAttackPerformed;
+    public Action OnMouseClickPerformed;
+    public Action OnMouseRClickPerformed;
 
     public InputManager()
     {
@@ -20,6 +23,12 @@ public class InputManager {
         _playerInput.Player.Move.performed -= OnMovePerformed;
         _playerInput.Player.Move.performed += OnMovePerformed;
         _playerInput.Player.Move.canceled += _ => MoveDirection = Vector2.zero; // 이동 입력이 취소될 때 방향을 0으로 설정
+
+        _playerInput.Player.MousePos.performed += context => MousePosition = context.ReadValue<Vector2>();
+        _playerInput.Player.MousePos.canceled += _ => MousePosition = Vector2.zero;
+
+        _playerInput.Player.MouseClick.performed += _ => OnMouseClickPerformed?.Invoke();
+        _playerInput.Player.MouseRClick.performed += _ => OnMouseRClickPerformed?.Invoke();
 
         _playerInput.Player.Interact.performed += _ => OnInteractPerformed?.Invoke();
         

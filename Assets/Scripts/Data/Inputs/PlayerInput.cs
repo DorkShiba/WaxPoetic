@@ -154,6 +154,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""29865fa6-3953-414f-adf2-2aaf19567f0d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ad87837-d17d-418d-824f-078b791fc22f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseRClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""41aa8cba-1569-43f0-9ec4-43c92aba5619"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -277,6 +304,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Avoid"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ef562b9-da02-4c4b-a491-55234ff0a4f3"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a904072-4a22-4835-8671-0d8326d48a41"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f938588-9a17-4a58-a83b-1ef67a58240b"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseRClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -337,6 +397,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Skill3 = m_Player.FindAction("Skill3", throwIfNotFound: true);
         m_Player_Skill4 = m_Player.FindAction("Skill4", throwIfNotFound: true);
         m_Player_Avoid = m_Player.FindAction("Avoid", throwIfNotFound: true);
+        m_Player_MousePos = m_Player.FindAction("MousePos", throwIfNotFound: true);
+        m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
+        m_Player_MouseRClick = m_Player.FindAction("MouseRClick", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -428,6 +491,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Skill3;
     private readonly InputAction m_Player_Skill4;
     private readonly InputAction m_Player_Avoid;
+    private readonly InputAction m_Player_MousePos;
+    private readonly InputAction m_Player_MouseClick;
+    private readonly InputAction m_Player_MouseRClick;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -467,6 +533,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Avoid".
         /// </summary>
         public InputAction @Avoid => m_Wrapper.m_Player_Avoid;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MousePos".
+        /// </summary>
+        public InputAction @MousePos => m_Wrapper.m_Player_MousePos;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MouseClick".
+        /// </summary>
+        public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MouseRClick".
+        /// </summary>
+        public InputAction @MouseRClick => m_Wrapper.m_Player_MouseRClick;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -514,6 +592,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Avoid.started += instance.OnAvoid;
             @Avoid.performed += instance.OnAvoid;
             @Avoid.canceled += instance.OnAvoid;
+            @MousePos.started += instance.OnMousePos;
+            @MousePos.performed += instance.OnMousePos;
+            @MousePos.canceled += instance.OnMousePos;
+            @MouseClick.started += instance.OnMouseClick;
+            @MouseClick.performed += instance.OnMouseClick;
+            @MouseClick.canceled += instance.OnMouseClick;
+            @MouseRClick.started += instance.OnMouseRClick;
+            @MouseRClick.performed += instance.OnMouseRClick;
+            @MouseRClick.canceled += instance.OnMouseRClick;
         }
 
         /// <summary>
@@ -546,6 +633,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Avoid.started -= instance.OnAvoid;
             @Avoid.performed -= instance.OnAvoid;
             @Avoid.canceled -= instance.OnAvoid;
+            @MousePos.started -= instance.OnMousePos;
+            @MousePos.performed -= instance.OnMousePos;
+            @MousePos.canceled -= instance.OnMousePos;
+            @MouseClick.started -= instance.OnMouseClick;
+            @MouseClick.performed -= instance.OnMouseClick;
+            @MouseClick.canceled -= instance.OnMouseClick;
+            @MouseRClick.started -= instance.OnMouseRClick;
+            @MouseRClick.performed -= instance.OnMouseRClick;
+            @MouseRClick.canceled -= instance.OnMouseRClick;
         }
 
         /// <summary>
@@ -744,6 +840,27 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAvoid(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MousePos" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMousePos(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MouseClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouseClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MouseRClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouseRClick(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
