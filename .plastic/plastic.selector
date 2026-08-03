@@ -1,3 +1,0 @@
-repository "WaxPoetic/WaxPoetic@14568838739548@cloud"
-  path "/"
-    smartbranch "/main/attack"
