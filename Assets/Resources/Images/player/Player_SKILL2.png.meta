@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: ac6ced2802bfdcb4dabd7ebfda13a763
+guid: 9ff648313dae8074db55eff82930ee2c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7278043880166224800
-    second: npc2 Copy-export_0
+      213: -6940005949633099013
+    second: Player_SKILL2_0
+  - first:
+      213: 2008328351471580798
+    second: Player_SKILL2_1
+  - first:
+      213: -7753191827133560297
+    second: Player_SKILL2_2
+  - first:
+      213: -2223128684626616347
+    second: Player_SKILL2_3
+  - first:
+      213: -835595159952512171
+    second: Player_SKILL2_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,11 +58,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.46, y: 0.03}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -126,23 +138,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: npc2 Copy-export_0
+      name: Player_SKILL2_0
       rect:
         serializedVersion: 2
-        x: 18
+        x: 0
         y: 0
-        width: 22
-        height: 49
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 120
+        height: 80
+      alignment: 9
+      pivot: {x: 0.36666667, y: 0.175}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a37309295ec00560800000000000000
-      internalID: 7278043880166224800
+      spriteID: bfa8509cb5520bf90800000000000000
+      internalID: -6940005949633099013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_SKILL2_1
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 120
+        height: 80
+      alignment: 9
+      pivot: {x: 0.39166668, y: 0.175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e763fcdbef30fdb10800000000000000
+      internalID: 2008328351471580798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_SKILL2_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 120
+        height: 80
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a0e348c11276490800000000000000
+      internalID: -7753191827133560297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_SKILL2_3
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 120
+        height: 80
+      alignment: 9
+      pivot: {x: 0.36666667, y: 0.175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ef59de6d3cd521e0800000000000000
+      internalID: -2223128684626616347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_SKILL2_4
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 120
+        height: 80
+      alignment: 9
+      pivot: {x: 0.36666667, y: 0.175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55baef211ae5764f0800000000000000
+      internalID: -835595159952512171
       vertices: []
       indices: 
       edges: []
@@ -151,17 +251,23 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 8eddcb807998cd142a73cabce97b27ed
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":120.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      npc2 Copy-export_0: 7278043880166224800
+      Player_SKILL2_0: -6940005949633099013
+      Player_SKILL2_1: 2008328351471580798
+      Player_SKILL2_2: -7753191827133560297
+      Player_SKILL2_3: -2223128684626616347
+      Player_SKILL2_4: -835595159952512171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
