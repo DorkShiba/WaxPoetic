@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 9593213320dd257438e0d23c8eb17fd5
+guid: ef5687ed01613d84abf50f8ff68c06cb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5083595156009211330
-    second: obj_coin_0
+      213: 7675826601332790545
+    second: coin_0
   - first:
-      213: 8175200280925194566
-    second: obj_coin_1
+      213: -675104096977794455
+    second: coin_1
   - first:
-      213: -1732866864399139152
-    second: obj_coin_2
+      213: -4412926668834298731
+    second: coin_2
   - first:
-      213: -6580469643136126248
-    second: obj_coin_3
+      213: -4862007459847594908
+    second: coin_3
+  - first:
+      213: -7914957615168794202
+    second: coin_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -135,7 +138,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: obj_coin_0
+      name: coin_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3aac20c3217379b0800000000000000
-      internalID: -5083595156009211330
+      spriteID: 1155fe920a3068a60800000000000000
+      internalID: 7675826601332790545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obj_coin_1
+      name: coin_1
       rect:
         serializedVersion: 2
         x: 32
@@ -172,14 +175,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 64948386755247170800000000000000
-      internalID: 8175200280925194566
+      spriteID: 96a4a31966c81a6f0800000000000000
+      internalID: -675104096977794455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obj_coin_2
+      name: coin_2
       rect:
         serializedVersion: 2
         x: 64
@@ -194,14 +197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0beb17894ce93f7e0800000000000000
-      internalID: -1732866864399139152
+      spriteID: 594a84c439222c2c0800000000000000
+      internalID: -4412926668834298731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obj_coin_3
+      name: coin_3
       rect:
         serializedVersion: 2
         x: 96
@@ -216,8 +219,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d231a179b97da4a0800000000000000
-      internalID: -6580469643136126248
+      spriteID: 46c1c7ca9fda68cb0800000000000000
+      internalID: -4862007459847594908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a15797fbfb682290800000000000000
+      internalID: -7914957615168794202
       vertices: []
       indices: 
       edges: []
@@ -226,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6c9ef07d7276e7548927c1d484cc6b1e
+    spriteID: 6001c7c1c4d7681418b1a170ed157110
     internalID: 0
     vertices: []
     indices: 
@@ -238,10 +263,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      obj_coin_0: -5083595156009211330
-      obj_coin_1: 8175200280925194566
-      obj_coin_2: -1732866864399139152
-      obj_coin_3: -6580469643136126248
+      coin_0: 7675826601332790545
+      coin_1: -675104096977794455
+      coin_2: -4412926668834298731
+      coin_3: -4862007459847594908
+      coin_4: -7914957615168794202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
