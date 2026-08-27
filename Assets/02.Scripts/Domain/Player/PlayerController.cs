@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using static Define;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] private PlayerData playerData;  // 플레이어 데이터 참조
     [SerializeField] private Vector2 moveDirection;
@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
     // Hook this up to your damage system later —
     // when true, incoming attacks should be ignored
     public bool IsInvincible => _dashController != null && _dashController.IsDashing;
+
+    public void TakeDamage(DamageInfo damageInfo)
+    {
+        if (IsInvincible) return;
+
+        Debug.Log($"[PlayerController] Player took {damageInfo.damage} damage from {damageInfo.attacker?.name}!");
+    }
+
     void Awake()
     {
         _dashController = GetComponent<DashController>();
@@ -73,33 +81,49 @@ public class PlayerController : MonoBehaviour
 
     void TryLootNearbyItems()
     {
-        // Detect all items within loot radius
+        // Detect all ICollectible items within loot radius
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, lootRadius, itemLayer);
 
         foreach (Collider2D col in itemColliders)
         {
-            ItemObject coin = col.GetComponent<ItemObject>();
-            if (coin != null)
+            ICollectible collectible = col.GetComponent<ICollectible>();
+            if (collectible != null)
             {
-                Managers.Inventory.AddItem(coin.ItemData, coin.Amount);
-                coin.Collect();  // destroys the GameObject
+                collectible.Collect(gameObject);
             }
-            // Future item types: add more GetComponent checks here
         }
     }
 
     void OnInteract()
     {
-        Debug.Log("interact detected.");
+        Debug.Log("Interact key pressed.");
 
-        Collider2D npc = Physics2D.OverlapCircle(transform.position, interactRadius, npcLayer);
-        if (npc == null)
+        // Search for nearest IInteractable object in radius
+        Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(transform.position, interactRadius);
+        IInteractable closestInteractable = null;
+        float minDistance = float.MaxValue;
+
+        foreach (Collider2D col in nearbyColliders)
         {
-            Debug.Log("NPC not detected.");
-            return;
+            IInteractable interactable = col.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                float dist = Vector2.Distance(transform.position, col.transform.position);
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    closestInteractable = interactable;
+                }
+            }
         }
-        else {
-            Debug.Log("NPC detected: " + npc.gameObject.name);
+
+        if (closestInteractable != null)
+        {
+            closestInteractable.Interact(gameObject);
+        }
+        else
+        {
+            Debug.Log("No interactable object found nearby.");
         }
     }
 }
