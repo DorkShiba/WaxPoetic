@@ -2,17 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIManager
+namespace Systems
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class UIManager
     {
-        
-    }
+        void Start()
+        {
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Update()
+        {
+        }
     }
 }

@@ -1,58 +1,57 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static Define;
+using Utils;
 
-public class InputManager {
-    PlayerInput _playerInput = null;
-
-    public Vector2 MoveDirection { get; private set; }
-    public Vector2 MousePosition { get; private set; }
-
-    public Action OnInteractPerformed;
-    public Action OnAvoidPerformed;
-    public Action<int> OnAttackPerformed;
-    public Action OnMouseClickPerformed;
-    public Action OnMouseRClickPerformed;
-
-    public InputManager()
+namespace Systems
+{
+    public class InputManager
     {
-        _playerInput = new @PlayerInput();
+        PlayerInput _playerInput = null;
 
-        // 1. 이동 값 업데이트 (Value 타입)
-        _playerInput.Player.Move.performed -= OnMovePerformed;
-        _playerInput.Player.Move.performed += OnMovePerformed;
-        _playerInput.Player.Move.canceled += _ => MoveDirection = Vector2.zero; // 이동 입력이 취소될 때 방향을 0으로 설정
+        public Vector2 MoveDirection { get; private set; }
+        public Vector2 MousePosition { get; private set; }
 
-        _playerInput.Player.MousePos.performed += context => MousePosition = context.ReadValue<Vector2>();
-        _playerInput.Player.MousePos.canceled += _ => MousePosition = Vector2.zero;
+        public Action OnInteractPerformed;
+        public Action OnAvoidPerformed;
+        public Action<int> OnAttackPerformed;
+        public Action OnMouseClickPerformed;
+        public Action OnMouseRClickPerformed;
 
-        _playerInput.Player.MouseClick.performed += _ => OnMouseClickPerformed?.Invoke();
-        _playerInput.Player.MouseRClick.performed += _ => OnMouseRClickPerformed?.Invoke();
+        public InputManager()
+        {
+            _playerInput = new @PlayerInput();
 
-        _playerInput.Player.Interact.performed += _ => OnInteractPerformed?.Invoke();
-        
-        _playerInput.Player.Avoid.performed += _ => OnAvoidPerformed?.Invoke();
+            _playerInput.Player.Move.performed -= OnMovePerformed;
+            _playerInput.Player.Move.performed += OnMovePerformed;
+            _playerInput.Player.Move.canceled += _ => MoveDirection = Vector2.zero;
 
-        _playerInput.Player.Skill1.performed += _ => OnAttackPerformed?.Invoke(0);
-        _playerInput.Player.Skill2.performed += _ => OnAttackPerformed?.Invoke(1);
-        _playerInput.Player.Skill3.performed += _ => OnAttackPerformed?.Invoke(2);
-        _playerInput.Player.Skill4.performed += _ => OnAttackPerformed?.Invoke(3);
+            _playerInput.Player.MousePos.performed += context => MousePosition = context.ReadValue<Vector2>();
+            _playerInput.Player.MousePos.canceled += _ => MousePosition = Vector2.zero;
 
-        // 인풋 액션 활성화
-        _playerInput.Enable();
-    }
+            _playerInput.Player.MouseClick.performed += _ => OnMouseClickPerformed?.Invoke();
+            _playerInput.Player.MouseRClick.performed += _ => OnMouseRClickPerformed?.Invoke();
 
-    private void OnMovePerformed(InputAction.CallbackContext context)
-    {
-        Vector2 currentDirection = context.ReadValue<Vector2>();
+            _playerInput.Player.Interact.performed += _ => OnInteractPerformed?.Invoke();
 
-        MoveDirection = currentDirection;
-        
-    }
+            _playerInput.Player.Avoid.performed += _ => OnAvoidPerformed?.Invoke();
 
-    public void OnUpdate()
-    {
-        
+            _playerInput.Player.Skill1.performed += _ => OnAttackPerformed?.Invoke(0);
+            _playerInput.Player.Skill2.performed += _ => OnAttackPerformed?.Invoke(1);
+            _playerInput.Player.Skill3.performed += _ => OnAttackPerformed?.Invoke(2);
+            _playerInput.Player.Skill4.performed += _ => OnAttackPerformed?.Invoke(3);
+
+            _playerInput.Enable();
+        }
+
+        private void OnMovePerformed(InputAction.CallbackContext context)
+        {
+            Vector2 currentDirection = context.ReadValue<Vector2>();
+            MoveDirection = currentDirection;
+        }
+
+        public void OnUpdate()
+        {
+        }
     }
 }

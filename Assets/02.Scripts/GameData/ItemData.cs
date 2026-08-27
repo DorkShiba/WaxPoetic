@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "Items/ItemData")]
-public class ItemData : ScriptableObject
+namespace GameData
 {
-    public string itemName;
-    public int itemID;
+    [CreateAssetMenu(fileName = "ItemData", menuName = "Items/ItemData")]
+    public class ItemData : ScriptableObject
+    {
+        public string itemName;
+        public int itemID;
+    }
 }

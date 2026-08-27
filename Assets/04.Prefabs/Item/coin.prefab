@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4502659008564520579, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394159087092783941, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_Name
       value: coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6211446968402930524, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.7058824
       objectReference: {fileID: 0}
+    - target: {fileID: 6433756736106825053, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7311963883497195437, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_Controller
       value: 
@@ -80,16 +96,19 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7939410791248930757}
     - targetCorrespondingSourceObject: {fileID: 5394159087092783941, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9111120687944981522}
+      addedObject: {fileID: 1326492865838981485}
   m_SourcePrefab: {fileID: 100100000, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
 --- !u!1 &769694435928546296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5394159087092783941, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
   m_PrefabInstance: {fileID: 4644730873344803005}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &9111120687944981522
+--- !u!58 &1326492865838981485
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,3 +144,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.25
+--- !u!1 &1139498344753975487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+  m_PrefabInstance: {fileID: 4644730873344803005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7939410791248930757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139498344753975487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313ddc57037a8954e86b7cf82e36006c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Interactables.CoinPickup
+  coinAmount: 1
+  pickupSound: {fileID: 0}

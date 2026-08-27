@@ -1,8 +1,13 @@
-/// <summary>
-/// Any GameObject that can receive damage implements this.
-/// Enemies, destructible objects, etc.
-/// </summary>
-public interface IDamageable
+using Domain.Combat;
+
+namespace Interfaces
 {
-    void TakeDamage(DamageInfo damageInfo);
+    /// <summary>
+    /// Any GameObject that can receive damage implements this.
+    /// Enemies, destructible objects, etc.
+    /// </summary>
+    public interface IDamageable
+    {
+        void TakeDamage(DamageInfo damageInfo);
+    }
 }

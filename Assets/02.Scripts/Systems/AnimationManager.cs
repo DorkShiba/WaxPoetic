@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class AnimationManager
+namespace Systems
 {
-    [SerializeField] private Animator playerAnimator;        // 애니메이터 참조
-    
-    void Init()
+    public class AnimationManager
     {
-        
-    }
+        [SerializeField] private Animator playerAnimator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Init()
+        {
+        }
+
+        void Update()
+        {
+        }
     }
 }

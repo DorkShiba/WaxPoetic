@@ -1,67 +1,70 @@
 using System.Collections;
 using UnityEngine;
-using static Define;
+using Domain.Combat;
+using GameData;
+using Systems;
 
-public class AttackController : MonoBehaviour
+namespace Domain.Player
 {
-    [SerializeField] private PlayerData playerData;
-    [SerializeField] private Animator animator;
-    [SerializeField] private HitboxController hitbox;
-
-    private BaseSkill[] _skills;
-    private SwingSkill _swingSkill;
-    private Coroutine _currentSkill;
-
-    void Awake()
+    public class AttackController : MonoBehaviour
     {
-        if (animator == null) animator = GetComponent<Animator>();
-        if (hitbox == null) hitbox = GetComponentInChildren<HitboxController>();
-    }
+        [SerializeField] private PlayerData playerData;
+        [SerializeField] private Animator animator;
+        [SerializeField] private HitboxController hitbox;
 
-    void Start()
-    {
-        _swingSkill = new SwingSkill(animator, hitbox, playerData);
+        private BaseSkill[] _skills;
+        private SwingSkill _swingSkill;
+        private Coroutine _currentSkill;
 
-        _skills = new BaseSkill[]
+        void Awake()
         {
-            _swingSkill,
-            new BiteSkill(animator, hitbox, playerData),
-            new RoarSkill(animator, hitbox, playerData),
-            new JumpSlamSkill(animator, hitbox, playerData)
-        };
-
-        Managers.Input.OnAttackPerformed -= OnAttackPerformed;
-        Managers.Input.OnAttackPerformed += OnAttackPerformed;
-    }
-
-    void OnDestroy()
-    {
-        Managers.Input.OnAttackPerformed -= OnAttackPerformed;
-    }
-
-    void Update()
-    {
-    }
-
-    private void OnAttackPerformed(int skillIndex)
-    {
-        if (skillIndex < 0 || skillIndex >= _skills.Length) return;
-
-        if (skillIndex == 0 && _swingSkill.IsComboActive)
-        {
-            // Z pressed during combo — buffer it, don't start a new coroutine
-            _swingSkill.BufferNextCombo();
-            return;
+            if (animator == null) animator = GetComponent<Animator>();
+            if (hitbox == null) hitbox = GetComponentInChildren<HitboxController>();
         }
 
-        if (skillIndex != 0 && _swingSkill.IsComboActive)
+        void Start()
         {
-            // Different skill pressed — cancel combo first
-            _swingSkill.CancelCombo();
-            hitbox.DisableHitbox();
-            if (_currentSkill != null) StopCoroutine(_currentSkill);
+            _swingSkill = new SwingSkill(animator, hitbox, playerData);
+
+            _skills = new BaseSkill[]
+            {
+                _swingSkill,
+                new BiteSkill(animator, hitbox, playerData),
+                new RoarSkill(animator, hitbox, playerData),
+                new JumpSlamSkill(animator, hitbox, playerData)
+            };
+
+            Managers.Input.OnAttackPerformed -= OnAttackPerformed;
+            Managers.Input.OnAttackPerformed += OnAttackPerformed;
         }
 
-        _currentSkill = StartCoroutine(_skills[skillIndex].Execute(this));
+        void OnDestroy()
+        {
+            Managers.Input.OnAttackPerformed -= OnAttackPerformed;
+        }
+
+        void Update()
+        {
+        }
+
+        private void OnAttackPerformed(int skillIndex)
+        {
+            if (skillIndex < 0 || skillIndex >= _skills.Length) return;
+
+            if (skillIndex == 0 && _swingSkill.IsComboActive)
+            {
+                _swingSkill.BufferNextCombo();
+                return;
+            }
+
+            if (skillIndex != 0 && _swingSkill.IsComboActive)
+            {
+                _swingSkill.CancelCombo();
+                hitbox.DisableHitbox();
+                if (_currentSkill != null) StopCoroutine(_currentSkill);
+            }
+
+            _currentSkill = StartCoroutine(_skills[skillIndex].Execute(this));
+        }
     }
 }

@@ -1,13 +1,16 @@
 using UnityEngine;
 
-/// <summary>
-/// Implemented by objects collected automatically upon collision overlap (e.g., Coins, Potions).
-/// </summary>
-public interface ICollectible
+namespace Interfaces
 {
     /// <summary>
-    /// Triggered when an entity (e.g. Player) overlaps and collects this object.
+    /// Implemented by objects collected automatically upon collision overlap (e.g., Coins, Potions).
     /// </summary>
-    /// <param name="collector">The GameObject collecting the item.</param>
-    void Collect(GameObject collector);
+    public interface ICollectible
+    {
+        /// <summary>
+        /// Triggered when an entity (e.g. Player) overlaps and collects this object.
+        /// </summary>
+        /// <param name="collector">The GameObject collecting the item.</param>
+        void Collect(GameObject collector);
+    }
 }

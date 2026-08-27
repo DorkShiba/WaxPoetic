@@ -1,63 +1,68 @@
 using UnityEngine;
+using Interfaces;
+using Systems;
 
-/// <summary>
-/// Curtain interactable object.
-/// Pressing the Interact key toggles curtain visual state (open/close) and updates blocking collider.
-/// Implements IInteractable.
-/// </summary>
-public class CurtainInteractable : MonoBehaviour, IInteractable
+namespace Domain.Interactables
 {
-    [Header("Curtain Settings")]
-    [SerializeField] private bool isOpen = false;
-
-    [Header("Components")]
-    [SerializeField] private Collider2D blockingCollider;
-    [SerializeField] private Animator animator;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite openSprite;
-    [SerializeField] private Sprite closedSprite;
-
-    [Header("Audio")]
-    [SerializeField] private AudioClip curtainSound;
-
-    private static readonly int IsOpenHash = Animator.StringToHash("isOpen");
-
-    public bool IsOpen => isOpen;
-
-    private void Awake()
+    /// <summary>
+    /// Curtain interactable object.
+    /// Pressing the Interact key toggles curtain visual state (open/close) and updates blocking collider.
+    /// Implements IInteractable.
+    /// </summary>
+    public class CurtainInteractable : MonoBehaviour, IInteractable
     {
-        if (animator == null) animator = GetComponent<Animator>();
-        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        UpdateVisualsAndCollision();
-    }
+        [Header("Curtain Settings")]
+        [SerializeField] private bool isOpen = false;
 
-    public void Interact(GameObject interactor)
-    {
-        isOpen = !isOpen;
-        UpdateVisualsAndCollision();
+        [Header("Components")]
+        [SerializeField] private Collider2D blockingCollider;
+        [SerializeField] private Animator animator;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Sprite openSprite;
+        [SerializeField] private Sprite closedSprite;
 
-        if (curtainSound != null && Managers.Sound != null)
+        [Header("Audio")]
+        [SerializeField] private AudioClip curtainSound;
+
+        private static readonly int IsOpenHash = Animator.StringToHash("isOpen");
+
+        public bool IsOpen => isOpen;
+
+        private void Awake()
         {
-            Managers.Sound.Play(curtainSound);
+            if (animator == null) animator = GetComponent<Animator>();
+            if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+            UpdateVisualsAndCollision();
         }
 
-        Debug.Log($"[CurtainInteractable] {gameObject.name} toggled state to: {(isOpen ? "Open" : "Closed")}");
-    }
-
-    private void UpdateVisualsAndCollision()
-    {
-        if (blockingCollider != null)
+        public void Interact(GameObject interactor)
         {
-            blockingCollider.enabled = !isOpen;
+            isOpen = !isOpen;
+            UpdateVisualsAndCollision();
+
+            if (curtainSound != null && Managers.Sound != null)
+            {
+                Managers.Sound.Play(curtainSound);
+            }
+
+            Debug.Log($"[CurtainInteractable] {gameObject.name} toggled state to: {(isOpen ? "Open" : "Closed")}");
         }
 
-        if (animator != null)
+        private void UpdateVisualsAndCollision()
         {
-            animator.SetBool(IsOpenHash, isOpen);
-        }
-        else if (spriteRenderer != null && openSprite != null && closedSprite != null)
-        {
-            spriteRenderer.sprite = isOpen ? openSprite : closedSprite;
+            if (blockingCollider != null)
+            {
+                blockingCollider.enabled = !isOpen;
+            }
+
+            if (animator != null)
+            {
+                animator.SetBool(IsOpenHash, isOpen);
+            }
+            else if (spriteRenderer != null && openSprite != null && closedSprite != null)
+            {
+                spriteRenderer.sprite = isOpen ? openSprite : closedSprite;
+            }
         }
     }
 }

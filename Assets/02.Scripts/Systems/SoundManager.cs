@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class SoundManager
+namespace Systems
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class SoundManager
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Play(AudioClip clip)
+        {
+            if (clip == null) return;
+            AudioSource.PlayClipAtPoint(clip, Vector3.zero);
+        }
     }
 }

@@ -10,7 +10,9 @@ using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
-public class GoogleSheetManager : MonoBehaviour
+namespace Systems
+{
+    public class GoogleSheetManager : MonoBehaviour
 {
     [Tooltip("true: google sheet, false: local json")]
     [SerializeField] bool isAccessGoogleSheet = true;
@@ -304,4 +306,5 @@ public class GoogleSheetManager : MonoBehaviour
         }
         return instance;
     }
+}
 }
