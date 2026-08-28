@@ -176,7 +176,7 @@ namespace Domain.Player
 
             foreach (Collider2D col in nearbyColliders)
             {
-                IInteractable interactable = col.GetComponent<IInteractable>();
+                IInteractable interactable = col.GetComponentInParent<IInteractable>();
                 if (interactable != null)
                 {
                     float dist = Vector2.Distance(transform.position, col.transform.position);

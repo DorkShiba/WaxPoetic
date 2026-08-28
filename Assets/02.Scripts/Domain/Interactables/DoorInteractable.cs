@@ -15,7 +15,6 @@ namespace Domain.Interactables
     {
         [Header("Destination Settings")]
         [SerializeField] private Transform destinationTransform;
-        [SerializeField] private Vector3 offset = Vector3.zero;
 
         [Header("Visual Settings")]
         [SerializeField] private Animator animator;
@@ -40,15 +39,14 @@ namespace Domain.Interactables
                 return;
             }
 
-            Vector3 targetPos = destinationTransform.position + offset;
-            interactor.transform.position = targetPos;
+            interactor.transform.position = destinationTransform.position;
 
             if (teleportSound != null && Managers.Sound != null)
             {
                 Managers.Sound.Play(teleportSound);
             }
 
-            Debug.Log($"[DoorInteractable] Teleported {interactor.name} to {targetPos}");
+            Debug.Log($"[DoorInteractable] Teleported {interactor.name} to {destinationTransform.position}");
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
