@@ -15,11 +15,7 @@ namespace Domain.Interactables
         [SerializeField] private bool isOpen = false;
 
         [Header("Components")]
-        [SerializeField] private Collider2D blockingCollider;
         [SerializeField] private Animator animator;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite openSprite;
-        [SerializeField] private Sprite closedSprite;
 
         [Header("Audio")]
         [SerializeField] private AudioClip curtainSound;
@@ -31,14 +27,13 @@ namespace Domain.Interactables
         private void Awake()
         {
             if (animator == null) animator = GetComponent<Animator>();
-            if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-            UpdateVisualsAndCollision();
+            UpdateVisuals();
         }
 
         public void Interact(GameObject interactor)
         {
             isOpen = !isOpen;
-            UpdateVisualsAndCollision();
+            UpdateVisuals();
 
             if (curtainSound != null && Managers.Sound != null)
             {
@@ -48,20 +43,11 @@ namespace Domain.Interactables
             Debug.Log($"[CurtainInteractable] {gameObject.name} toggled state to: {(isOpen ? "Open" : "Closed")}");
         }
 
-        private void UpdateVisualsAndCollision()
+        private void UpdateVisuals()
         {
-            if (blockingCollider != null)
-            {
-                blockingCollider.enabled = !isOpen;
-            }
-
             if (animator != null)
             {
                 animator.SetBool(IsOpenHash, isOpen);
-            }
-            else if (spriteRenderer != null && openSprite != null && closedSprite != null)
-            {
-                spriteRenderer.sprite = isOpen ? openSprite : closedSprite;
             }
         }
     }

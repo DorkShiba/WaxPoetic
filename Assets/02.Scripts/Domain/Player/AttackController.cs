@@ -34,13 +34,19 @@ namespace Domain.Player
                 new JumpSlamSkill(animator, hitbox, playerData)
             };
 
-            Managers.Input.OnAttackPerformed -= OnAttackPerformed;
-            Managers.Input.OnAttackPerformed += OnAttackPerformed;
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnAttackPerformed -= OnAttackPerformed;
+                Managers.Input.OnAttackPerformed += OnAttackPerformed;
+            }
         }
 
         void OnDestroy()
         {
-            Managers.Input.OnAttackPerformed -= OnAttackPerformed;
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnAttackPerformed -= OnAttackPerformed;
+            }
         }
 
         void Update()

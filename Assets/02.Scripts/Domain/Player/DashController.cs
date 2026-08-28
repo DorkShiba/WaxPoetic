@@ -32,13 +32,19 @@ namespace Domain.Player
 
         void Start()
         {
-            Managers.Input.OnAvoidPerformed -= OnAvoid;
-            Managers.Input.OnAvoidPerformed += OnAvoid;
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnAvoidPerformed -= OnAvoid;
+                Managers.Input.OnAvoidPerformed += OnAvoid;
+            }
         }
 
         void OnDestroy()
         {
-            Managers.Input.OnAvoidPerformed -= OnAvoid;
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnAvoidPerformed -= OnAvoid;
+            }
         }
 
         private void OnAvoid()

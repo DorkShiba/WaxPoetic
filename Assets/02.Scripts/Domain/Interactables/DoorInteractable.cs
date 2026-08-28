@@ -1,6 +1,7 @@
 using UnityEngine;
 using Interfaces;
 using Systems;
+using Domain.Player;
 
 namespace Domain.Interactables
 {
@@ -18,9 +19,6 @@ namespace Domain.Interactables
 
         [Header("Visual Settings")]
         [SerializeField] private Animator animator;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite openSprite;
-        [SerializeField] private Sprite closedSprite;
 
         [Header("Audio")]
         [SerializeField] private AudioClip openSound;
@@ -31,7 +29,7 @@ namespace Domain.Interactables
         private void Awake()
         {
             if (animator == null) animator = GetComponent<Animator>();
-            if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+            SetDoorVisualOpen(false);
         }
 
         public void Interact(GameObject interactor)
@@ -55,7 +53,7 @@ namespace Domain.Interactables
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
             {
                 SetDoorVisualOpen(true);
             }
@@ -63,7 +61,7 @@ namespace Domain.Interactables
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
             {
                 SetDoorVisualOpen(false);
             }
@@ -74,10 +72,6 @@ namespace Domain.Interactables
             if (animator != null)
             {
                 animator.SetBool(IsOpenHash, open);
-            }
-            else if (spriteRenderer != null && openSprite != null && closedSprite != null)
-            {
-                spriteRenderer.sprite = open ? openSprite : closedSprite;
             }
 
             if (open && openSound != null && Managers.Sound != null)

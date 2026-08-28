@@ -97,7 +97,7 @@ SpriteRenderer:
   m_Size: {x: 0.48, y: 0.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!61 &4436165912169606046
 BoxCollider2D:
@@ -136,9 +136,9 @@ BoxCollider2D:
   m_Offset: {x: -0.047735512, y: 0.93637216}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4, y: 0}
-    oldSize: {x: 1.9583334, y: 2.0416667}
-    newSize: {x: 0.48, y: 0.98}
+    pivot: {x: 0.390625, y: 0.140625}
+    oldSize: {x: 2.6666667, y: 2.6666667}
+    newSize: {x: 2.6666667, y: 2.6666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -159,6 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   playerData: {fileID: 11400000, guid: 152dcdf5023f10941888d0b7d81f97a2, type: 2}
   moveDirection: {x: 0, y: 0}
+  maxHealth: 100
+  currentHealth: 100
   npcLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -223,8 +225,8 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0.1958313, y: 1.0208282, z: 0}
-      m_Extent: {x: 0.88916016, y: 0.9308319, z: 0}
+      m_Center: {x: 0.27083588, y: 0.9166641, z: 0}
+      m_Extent: {x: 0.97249603, y: 1.0766678, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.09
     m_FlipX: 0
