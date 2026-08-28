@@ -104,7 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a735104e3b16844da5d02300f58dbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Domain.Interactables.PotionPickup
-  healAmount: 30
+  hpHealAmount: 30
+  staminaHealAmount: 0
   pickupSound: {fileID: 0}
 --- !u!61 &8496565354737758388
 BoxCollider2D:

@@ -15,6 +15,8 @@ namespace Domain.Player
         [SerializeField] private Vector2 moveDirection;
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float currentHealth = 100f;
+        [SerializeField] private float maxStamina = 100f;
+        [SerializeField] private float currentStamina = 100f;
 
         private const float interactRadius = 3f;      // 상호작용 감지 범위
         private const float lootRadius = 1.5f;        // 루팅 감지 범위
@@ -41,6 +43,11 @@ namespace Domain.Player
         public event Action<float, float> OnHealthChanged;
 
         /// <summary>
+        /// Fired when the player's stamina changes. Passes (currentStamina, maxStamina).
+        /// </summary>
+        public event Action<float, float> OnStaminaChanged;
+
+        /// <summary>
         /// Fired when the player's health reaches 0.
         /// </summary>
         public event Action OnPlayerDied;
@@ -48,6 +55,8 @@ namespace Domain.Player
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
+        public float CurrentStamina => currentStamina;
+        public float MaxStamina => maxStamina;
         // Hook this up to your damage system later —
         // when true, incoming attacks should be ignored
         public bool IsInvincible => _dashController != null && _dashController.IsDashing;
@@ -60,8 +69,10 @@ namespace Domain.Player
             if (playerData != null)
             {
                 maxHealth = playerData.MaxHP > 0 ? playerData.MaxHP : maxHealth;
+                maxStamina = playerData.MaxStamina > 0 ? playerData.MaxStamina : maxStamina;
             }
             currentHealth = maxHealth;
+            currentStamina = maxStamina;
         }
 
         void Start()
@@ -73,6 +84,7 @@ namespace Domain.Player
             }
 
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
+            OnStaminaChanged?.Invoke(currentStamina, maxStamina);
         }
 
         private void OnDestroy()
@@ -130,6 +142,31 @@ namespace Domain.Player
             currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
             Debug.Log($"[PlayerController] Healed {amount} HP. Current HP: {currentHealth}/{maxHealth}");
+        }
+
+        public bool TryUseStamina(float amount)
+        {
+            if (currentHealth <= 0) return false;
+
+            if (currentStamina < amount)
+            {
+                Debug.Log($"[PlayerController] Not enough stamina! Needed {amount}, current: {currentStamina}/{maxStamina}");
+                return false;
+            }
+
+            currentStamina -= amount;
+            OnStaminaChanged?.Invoke(currentStamina, maxStamina);
+            Debug.Log($"[PlayerController] Consumed {amount} Stamina. Current Stamina: {currentStamina}/{maxStamina}");
+            return true;
+        }
+
+        public void RestoreStamina(float amount)
+        {
+            if (currentHealth <= 0) return;
+
+            currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
+            OnStaminaChanged?.Invoke(currentStamina, maxStamina);
+            Debug.Log($"[PlayerController] Restored {amount} Stamina. Current Stamina: {currentStamina}/{maxStamina}");
         }
 
         public void TakeDamage(DamageInfo damageInfo)

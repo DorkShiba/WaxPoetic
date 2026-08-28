@@ -23,11 +23,14 @@ namespace Domain.Player
         private bool _isDashing = false;
         private bool _isCoolingDown = false;
 
+        private PlayerController _playerController;
+
         public bool IsDashing => _isDashing;
 
         void Awake()
         {
             if (animator == null) animator = GetComponent<Animator>();
+            _playerController = GetComponent<PlayerController>();
         }
 
         void Start()
@@ -49,10 +52,15 @@ namespace Domain.Player
 
         private void OnAvoid()
         {
-            if (_isDashing) return;       // already dashing
-            if (_charges <= 0) return;    // no charges left
+            if (_isDashing) return; // already dashing
 
-            Debug.Log("Dash activated. Charges left: " + _charges);
+            const float staminaCost = 10f;
+            if (_playerController != null && !_playerController.TryUseStamina(staminaCost))
+            {
+                return; // Not enough stamina to dash
+            }
+
+            Debug.Log("Dash activated.");
 
             Vector2 moveInput = Managers.Input.MoveDirection;
 
@@ -84,6 +92,12 @@ namespace Domain.Player
             }
 
             _isDashing = false;
+        }
+
+        public void RestoreCharges(int count = MaxCharges)
+        {
+            _charges = Mathf.Min(_charges + count, MaxCharges);
+            Debug.Log($"[DashController] Restored dash charges. Current charges: {_charges}/{MaxCharges}");
         }
 
         private IEnumerator ChargeRefillRoutine()
