@@ -66,15 +66,21 @@ namespace Domain.Player
 
         void Start()
         {
-            Managers.Input.OnInteractPerformed -= OnInteract; // 상호작용 이벤트
-            Managers.Input.OnInteractPerformed += OnInteract;
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnInteractPerformed -= OnInteract; // 상호작용 이벤트
+                Managers.Input.OnInteractPerformed += OnInteract;
+            }
 
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
         }
 
         private void OnDestroy()
         {
-            Managers.Input.OnInteractPerformed -= OnInteract; // 상호작용 이벤트 해제
+            if (Managers.Input != null)
+            {
+                Managers.Input.OnInteractPerformed -= OnInteract; // 상호작용 이벤트 해제
+            }
         }
 
         // Update is called once per frame
