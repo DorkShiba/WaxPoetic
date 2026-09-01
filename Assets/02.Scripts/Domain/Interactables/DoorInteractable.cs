@@ -7,14 +7,15 @@ namespace Domain.Interactables
 {
     /// <summary>
     /// Door interactable object.
-    /// Opens visually when the player is near (OnTriggerEnter2D/Exit2D).
-    /// Teleports the player to a target destination transform when the Interact key is pressed.
+    /// Supports two-way teleportation (Outside <-> Inside) based on player position.
+    /// Responds to PlayerController interaction detection for visual opening/closing.
     /// Implements IInteractable.
     /// </summary>
     public class DoorInteractable : MonoBehaviour, IInteractable
     {
         [Header("Destination Settings")]
-        [SerializeField] private Transform destinationTransform;
+        [SerializeField] private Transform outsideTransform;
+        [SerializeField] private Transform insideTransform;
 
         [Header("Visual Settings")]
         [SerializeField] private Animator animator;
@@ -24,6 +25,7 @@ namespace Domain.Interactables
         [SerializeField] private AudioClip teleportSound;
 
         private static readonly int IsOpenHash = Animator.StringToHash("isOpen");
+        private bool _isOpen = false;
 
         private void Awake()
         {
@@ -31,42 +33,54 @@ namespace Domain.Interactables
             SetDoorVisualOpen(false);
         }
 
+        private void OnEnable()
+        {
+            PlayerController.OnInteractableDetected += HandleInteractableDetected;
+        }
+
+        private void OnDisable()
+        {
+            PlayerController.OnInteractableDetected -= HandleInteractableDetected;
+            SetDoorVisualOpen(false);
+        }
+
         public void Interact(GameObject interactor)
         {
-            if (destinationTransform == null)
+            if (outsideTransform == null || insideTransform == null)
             {
-                Debug.LogWarning($"[DoorInteractable] {gameObject.name} has no destinationTransform assigned!");
+                Debug.LogWarning($"[DoorInteractable] {gameObject.name} requires both outsideTransform and insideTransform to be assigned!");
                 return;
             }
 
-            interactor.transform.position = destinationTransform.position;
+            Vector3 playerPos = interactor.transform.position;
+            float distToOutside = Vector3.Distance(playerPos, outsideTransform.position);
+            float distToInside = Vector3.Distance(playerPos, insideTransform.position);
+
+            // If player is closer to outsideTransform, teleport to insideTransform; otherwise teleport to outsideTransform.
+            Vector3 targetPosition = (distToOutside < distToInside) ? insideTransform.position : outsideTransform.position;
+
+            interactor.transform.position = targetPosition;
 
             if (teleportSound != null && Managers.Sound != null)
             {
                 Managers.Sound.Play(teleportSound);
             }
 
-            Debug.Log($"[DoorInteractable] Teleported {interactor.name} to {destinationTransform.position}");
+            Debug.Log($"[DoorInteractable] Teleported {interactor.name} to {targetPosition}");
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void HandleInteractableDetected(IInteractable detectedTarget)
         {
-            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
-            {
-                SetDoorVisualOpen(true);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
-            {
-                SetDoorVisualOpen(false);
-            }
+            bool isTarget = ReferenceEquals(detectedTarget, this) || 
+                           (detectedTarget is Component comp && comp.gameObject == gameObject);
+            SetDoorVisualOpen(isTarget);
         }
 
         private void SetDoorVisualOpen(bool open)
         {
+            if (_isOpen == open) return;
+            _isOpen = open;
+
             if (animator != null)
             {
                 animator.SetBool(IsOpenHash, open);
@@ -79,3 +93,4 @@ namespace Domain.Interactables
         }
     }
 }
+
