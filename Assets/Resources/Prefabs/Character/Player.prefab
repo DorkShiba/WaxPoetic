@@ -85,19 +85,19 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 663122163
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2615352338992714964, guid: 2effe75ea720b6b478764e3d3f44cd8e, type: 3}
+  m_Sprite: {fileID: -5966682454603674975, guid: 51e142455d654344a88fe0ad41c7206c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.48, y: 0.98}
+  m_Size: {x: 2.6666667, y: 2.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!61 &4436165912169606046
 BoxCollider2D:
@@ -161,6 +161,8 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0}
   maxHealth: 100
   currentHealth: 100
+  maxStamina: 100
+  currentStamina: 100
   npcLayer:
     serializedVersion: 2
     m_Bits: 256
