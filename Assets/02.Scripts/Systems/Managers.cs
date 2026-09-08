@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Domain.Items;
 
@@ -41,6 +42,12 @@ namespace Systems
         public static DataManager Data { get { return Instance?._data; } }
 
         public static Inventory Inventory { get; private set; } = new Inventory();
+
+        SceneManager _scene = new();
+        public static SceneManager Scene { get { return Instance?._scene; } }
+
+        PoolManager _pool = new();
+        public static PoolManager Pool { get { return Instance?._pool; } }
         #endregion
 
         void Awake()
@@ -86,6 +93,23 @@ namespace Systems
 
                 s_instance._input = new InputManager();
             }
+        }
+
+        public static Coroutine StartCoroutineManager(Func<IEnumerator> func) {
+            return Instance.StartCoroutine(func());
+        }
+
+        public static Coroutine StartCoroutineManager<T>(Func<T, IEnumerator> func, T t) {
+            return Instance.StartCoroutine(func(t));
+        }
+
+        public static void StopCoroutineManager(Coroutine coroutine) {
+            Instance.StopCoroutine(coroutine);
+        }
+
+        public static IEnumerator WaitForSeconds((float seconds, Action callback) args) {
+            yield return new WaitForSeconds(args.seconds);
+            args.callback?.Invoke();
         }
     }
 }

@@ -835,9 +835,13 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 30
     m_Data: {fileID: 11400000, guid: 609d8cd90e8442f41b7ba3e67fa8cc71, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 30
     m_Data: {fileID: 21300000, guid: a436349a4343264419a053963b3cc9d3, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 30
     m_Data:
@@ -949,6 +953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1756574706659039764}
+  - component: {fileID: 2037805796992779062}
   m_Layer: 0
   m_Name: Classroom
   m_TagString: Untagged
@@ -975,6 +980,18 @@ Transform:
   - {fileID: 5374383939329808742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!156049354 &2037805796992779062
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535129016599435483}
+  m_Enabled: 1
+  m_CellSize: {x: 2, y: 2, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
 --- !u!1 &7189587523534286632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,31 +2329,39 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: -0.00021783379
+      e00: 1.1e-44
       e01: 0
-      e02: -1.9833884e+37
-      e03: -1.9833925e+37
-      e10: 4.5915e-41
+      e02: 0.00000014039188
+      e03: 3.5236612e-19
+      e10: 0
       e11: 0
-      e12: 1.14e-43
-      e13: 1.14e-43
-      e20: -0.00071996264
-      e21: -1.53303565e-33
-      e22: -1.53303565e-33
-      e23: -2.748728e-29
-      e30: 4.5915e-41
-      e31: 7.55e-43
-      e32: 7.55e-43
-      e33: 7.5e-43
+      e12: 1.9e-43
+      e13: 6.9e-43
+      e20: 2.359654e+19
+      e21: 0
+      e22: -3.9419445e+19
+      e23: -1.6687715e-18
+      e30: 4.5912e-41
+      e31: 0
+      e32: 6.92e-43
+      e33: 6.9e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: -1.98336e+37, g: -1.98336e+37, b: -1.98336e+37, a: -1.98336e+37}
+    m_Data: {r: 4.982162e+12, g: 4.982162e+12, b: 4.982162e+12, a: 4.982162e+12}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}

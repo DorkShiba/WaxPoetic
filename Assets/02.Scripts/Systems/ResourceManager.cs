@@ -13,7 +13,7 @@ namespace Systems
             return Resources.Load<T>(path);
         }
 
-        public GameObject Instantiate(string path, Vector3 position = default, Quaternion rotation = default)
+        public GameObject Instantiate(string path, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
         {
             GameObject prefab = Load<GameObject>($"Prefabs/{path}");
             if (prefab == null)
@@ -22,10 +22,15 @@ namespace Systems
                 return null;
             }
 
-            return Object.Instantiate(prefab, position, rotation);
+            if (Managers.Pool.Contains(prefab.name))
+            {
+                return Managers.Pool.Pop(prefab, parent).gameObject;
+            }
+
+            return Object.Instantiate(prefab, position, rotation, parent);
         }
 
-        public GameObject Instantiate(GameObject prefab, Vector3 position = default, Quaternion rotation = default)
+        public GameObject Instantiate(GameObject prefab, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
         {
             if (prefab == null)
             {
@@ -33,12 +38,23 @@ namespace Systems
                 return null;
             }
 
-            return Object.Instantiate(prefab, position, rotation);
+            if (Managers.Pool.Contains(prefab.name))
+            {
+                return Managers.Pool.Pop(prefab, parent).gameObject;
+            }
+
+            return Object.Instantiate(prefab, position, rotation, parent);
         }
 
         public void Destroy(GameObject go, float delay = 0f)
         {
             if (go == null) { return; }
+
+            if (Managers.Pool.Contains(go.name))
+            {
+                Managers.Pool.Push(go.GetComponent<Poolable>());
+                return;
+            }
 
             Object.Destroy(go, delay);
         }
@@ -46,6 +62,14 @@ namespace Systems
         public void Destroy(Transform transform, float delay = 0f)
         {
             if (transform == null) { return; }
+
+            if (Managers.Pool.Contains(transform.gameObject.name))
+            {
+                
+                Managers.Pool.Push(transform.GetComponent<Poolable>());
+                return;
+            }
+
             GameObject go = transform.gameObject;
             Destroy(go, delay);
         }
