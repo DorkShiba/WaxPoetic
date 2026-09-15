@@ -47,7 +47,7 @@ namespace Systems
         public static SceneManager Scene { get { return Instance?._scene; } }
 
         PoolManager _pool = new();
-        public static PoolManager Pool { get { return Instance?._pool; } }
+        public static PoolManager Pooling { get { return Instance?._pool; } }
         #endregion
 
         void Awake()
@@ -93,6 +93,10 @@ namespace Systems
 
                 s_instance._input = new InputManager();
             }
+
+            s_instance._pool.Init();
+            s_instance._sound.Init();
+            s_instance._scene.Init();
         }
 
         public static Coroutine StartCoroutineManager(Func<IEnumerator> func) {
