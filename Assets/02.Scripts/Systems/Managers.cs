@@ -46,8 +46,8 @@ namespace Systems
         SceneManager _scene = new();
         public static SceneManager Scene { get { return Instance?._scene; } }
 
-        PoolManager _pool = new();
-        public static PoolManager Pooling { get { return Instance?._pool; } }
+        PoolingManager _pooling = new();
+        public static PoolingManager Pooling { get { return Instance?._pooling; } }
         #endregion
 
         void Awake()
@@ -94,7 +94,7 @@ namespace Systems
                 s_instance._input = new InputManager();
             }
 
-            s_instance._pool.Init();
+            s_instance._pooling.Init();
             s_instance._sound.Init();
             s_instance._scene.Init();
         }

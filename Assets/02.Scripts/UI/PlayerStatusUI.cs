@@ -4,13 +4,17 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class PlayerStatusUI : MonoBehaviour
+    public class PlayerStatusUI : BaseUI
     {
         [SerializeField] private PlayerController player;
         [SerializeField] private Slider hpBar;
         [SerializeField] private Slider staminaBar;
 
         private bool started;
+
+        public override void Init() {
+            
+        }
 
         private void Awake()
         {

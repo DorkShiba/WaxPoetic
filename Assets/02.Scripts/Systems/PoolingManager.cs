@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 
 namespace Systems
 {
-    public class PoolManager {
+    public class PoolingManager {
 
         Dictionary<string, Pool> dict_pool = new Dictionary<string, Pool>();
         Transform _root;
