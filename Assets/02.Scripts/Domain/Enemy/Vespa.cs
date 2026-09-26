@@ -6,12 +6,12 @@ using Domain.Combat;
 namespace Domain.Enemy
 {
     /// <summary>
-    /// A dummy enemy script implementing IDamageable.
+    /// A dummy enemy script implementing ICombatant.
     /// Responds to hit damage, flashes red, and takes knockback.
     /// Resetting health automatically upon "death" for easy sandbox testing.
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public class DummyEnemy : MonoBehaviour, IDamageable
+    public class Vespa : MonoBehaviour, ICombatant
     {
         [SerializeField] private float maxHealth = 1000f;
         [SerializeField] private float currentHealth;
@@ -30,7 +30,7 @@ namespace Domain.Enemy
         public void TakeDamage(DamageInfo damageInfo)
         {
             currentHealth -= damageInfo.damage;
-            Debug.Log($"[DummyEnemy] Took {damageInfo.damage} dmg at point {damageInfo.hitPoint} from {damageInfo.attacker.name}. HP remaining: {currentHealth}/{maxHealth}");
+            Debug.Log($"[Vespa] Took {damageInfo.damage} dmg at point {damageInfo.hitPoint} from {damageInfo.attacker.name}. HP remaining: {currentHealth}/{maxHealth}");
 
             // Flash Red
             if (_damageFlashCoroutine != null)
@@ -78,7 +78,7 @@ namespace Domain.Enemy
 
         private void Die()
         {
-            Debug.Log("[DummyEnemy] Dummy died! Resetting health for next test.");
+            Debug.Log("[Vespa] Dummy died! Resetting health for next test.");
             currentHealth = maxHealth;
         }
     }

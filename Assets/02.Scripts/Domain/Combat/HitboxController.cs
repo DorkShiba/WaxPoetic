@@ -56,7 +56,7 @@ namespace Domain.Combat
 
             _alreadyHit.Add(other.gameObject);
 
-            IDamageable damageable = other.GetComponent<IDamageable>();
+            ICombatant damageable = other.GetComponent<ICombatant>();
             if (damageable != null)
             {
                 Vector2 hitPoint = other.ClosestPoint(transform.position);

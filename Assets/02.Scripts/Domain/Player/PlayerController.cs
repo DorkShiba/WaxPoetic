@@ -9,7 +9,7 @@ using Systems;
 
 namespace Domain.Player
 {
-    public class PlayerController : MonoBehaviour, IDamageable
+    public class PlayerController : MonoBehaviour, ICombatant
     {
         [SerializeField] private PlayerData playerData;  // 플레이어 데이터 참조
         [SerializeField] private Vector2 moveDirection;

@@ -4,7 +4,7 @@ namespace Domain.Combat
 {
     /// <summary>
     /// Contains all properties associated with an attack impact / hit.
-    /// Passed to IDamageable targets when they are struck.
+    /// Passed to ICombatant targets when they are struck.
     /// </summary>
     public struct DamageInfo
     {
