@@ -194,11 +194,12 @@ namespace Domain.Player
             // Fallback to all layers if itemLayer is unassigned in Inspector (itemLayer == 0)
             LayerMask mask = itemLayer.value != 0 ? itemLayer : (LayerMask)~0;
             Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, lootRadius, mask);
+            var collected = new HashSet<ICollectible>();
 
             foreach (Collider2D col in itemColliders)
             {
                 ICollectible collectible = col.GetComponent<ICollectible>();
-                if (collectible != null)
+                if (collectible != null && collected.Add(collectible))
                 {
                     collectible.Collect(gameObject);
                 }
@@ -246,13 +247,5 @@ namespace Domain.Player
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            ICollectible collectible = collision.GetComponent<ICollectible>();
-            if (collectible != null)
-            {
-                collectible.Collect(gameObject);
-            }
-        }
     }
 }

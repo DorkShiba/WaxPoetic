@@ -1,6 +1,5 @@
 using UnityEngine;
 using Interfaces;
-using Domain.Player;
 using GameData;
 using Systems;
 
@@ -24,12 +23,5 @@ namespace Domain.Items
             Destroy(gameObject);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
-            {
-                Collect(collision.gameObject);
-            }
-        }
     }
 }

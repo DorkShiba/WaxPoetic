@@ -7,7 +7,7 @@ using Systems;
 namespace Domain.Interactables
 {
     /// <summary>
-    /// Handles automatic potion pickup upon collision overlap.
+    /// Handles potion effects when the player collects it through proximity detection.
     /// Implements ICollectible.
     /// </summary>
     public class PotionPickup : MonoBehaviour, ICollectible
@@ -50,12 +50,5 @@ namespace Domain.Interactables
             Destroy(gameObject);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player") || collision.GetComponent<PlayerController>() != null)
-            {
-                Collect(collision.gameObject);
-            }
-        }
     }
 }

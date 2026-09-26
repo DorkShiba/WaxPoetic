@@ -227,8 +227,8 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0.9375, y: 0.8125, z: 0}
-      m_Extent: {x: 1.6808319, y: 1.0141602, z: 0}
+      m_Center: {x: -0.020828247, y: 1.6875, z: 0}
+      m_Extent: {x: 2.055832, y: 2.055832, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.09
     m_FlipX: 0
@@ -259,7 +259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackController
   playerData: {fileID: 11400000, guid: 152dcdf5023f10941888d0b7d81f97a2, type: 2}
   animator: {fileID: 9077478113123591685}
-  hitbox: {fileID: 0}
+  skill1A: {fileID: 4711189120270278904}
+  skill1B: {fileID: 4080686572281212770}
+  skill1C: {fileID: 8091960979443245094}
+  skill2: {fileID: 2899366933450809011}
+  skill3: {fileID: 2609794753383851256}
+  skill4: {fileID: 7814298918527869056}
 --- !u!114 &8751481018012836505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +317,7 @@ GameObject:
   - component: {fileID: 2907182485484232343}
   - component: {fileID: 8340544747798000908}
   - component: {fileID: 9056398061986988944}
+  - component: {fileID: 8091960979443245094}
   m_Layer: 7
   m_Name: Skill1C
   m_TagString: Untagged
@@ -439,6 +445,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8091960979443245094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722221799734471869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 9056398061986988944}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 20
 --- !u!1 &2465053658947475412
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,6 +473,7 @@ GameObject:
   - component: {fileID: 8567490977495358107}
   - component: {fileID: 5065123290630354977}
   - component: {fileID: 94008154709053890}
+  - component: {fileID: 4080686572281212770}
   m_Layer: 7
   m_Name: Skill1B
   m_TagString: Untagged
@@ -577,6 +601,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4080686572281212770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465053658947475412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 94008154709053890}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 10
 --- !u!1 &4885979894773023378
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +629,7 @@ GameObject:
   - component: {fileID: 4155765151575320744}
   - component: {fileID: 3242845909051658508}
   - component: {fileID: 7772535335739662820}
+  - component: {fileID: 4711189120270278904}
   m_Layer: 7
   m_Name: Skill1A
   m_TagString: Untagged
@@ -715,6 +757,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4711189120270278904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4885979894773023378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 7772535335739662820}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 5
 --- !u!1 &5258271873214990686
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +784,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9023531308990569292}
   - component: {fileID: 3608514945140623516}
+  - component: {fileID: 2858644981866449029}
+  - component: {fileID: 7814298918527869056}
   m_Layer: 7
   m_Name: Skill4
   m_TagString: Untagged
@@ -806,6 +867,69 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &2858644981866449029
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5258271873214990686}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &7814298918527869056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5258271873214990686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 2858644981866449029}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 0
 --- !u!1 &6182126196443242545
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +939,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 116915615922038746}
-  - component: {fileID: 1506045965216597270}
+  - component: {fileID: 257618490510393643}
+  - component: {fileID: 5098838696468010863}
+  - component: {fileID: 2609794753383851256}
   m_Layer: 7
   m_Name: Skill3
   m_TagString: Untagged
@@ -832,13 +958,13 @@ Transform:
   m_GameObject: {fileID: 6182126196443242545}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.04, y: 1.6833, z: 0}
+  m_LocalScale: {x: 4.354056, y: 4.354056, z: 4.354056}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5034893761794000234}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1506045965216597270
+--- !u!212 &257618490510393643
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -897,6 +1023,69 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &5098838696468010863
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182126196443242545}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &2609794753383851256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182126196443242545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 5098838696468010863}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 0
 --- !u!1 &7232385107667052648
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +1096,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7573808485990639164}
   - component: {fileID: 2611734520372003058}
+  - component: {fileID: 4611543004102461558}
+  - component: {fileID: 2899366933450809011}
   m_Layer: 7
   m_Name: Skill2
   m_TagString: Untagged
@@ -923,8 +1114,8 @@ Transform:
   m_GameObject: {fileID: 7232385107667052648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.6622, y: 0.8417, z: 0}
+  m_LocalScale: {x: 2.0243, y: 1.9810926, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5034893761794000234}
@@ -988,6 +1179,69 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &4611543004102461558
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232385107667052648}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &2899366933450809011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232385107667052648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c5c77ec93e6ea42abed599514c3324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Combat.HitboxController
+  hitbox: {fileID: 4611543004102461558}
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  knockbackForce: 0
 --- !u!1 &7713497025349217651
 GameObject:
   m_ObjectHideFlags: 0

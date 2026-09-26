@@ -1,107 +1,70 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Interfaces;
-using Domain.Camera;
 
 namespace Domain.Combat
 {
-    /// <summary>
-    /// Attached to a child GameObject that holds the attack Collider2D(s).
-    /// Animation Events call Enable/Disable on this to open/close the hitbox window.
-    /// </summary>
+    [RequireComponent(typeof(Collider2D))]
     public class HitboxController : MonoBehaviour
     {
         [SerializeField] private Collider2D hitbox;
+        [SerializeField] private LayerMask targetLayers = ~0;
+        [Tooltip("Initial knockback speed. Zero disables knockback for this attack.")]
+        [SerializeField, Min(0f)] private float knockbackForce = 0f;
+        private readonly HashSet<ICombatant> alreadyHit = new();
+        private readonly List<Collider2D> overlaps = new();
+        private GameObject attacker;
+        private ICombatant owner;
+        private float damage;
+        private bool active;
 
-        private float _damage;
-        private float _knockbackForce;
-        private float _hitStopDuration;
-        private float _cameraShakeIntensity;
-        private Coroutine _hitStopCoroutine;
-
-        private HashSet<GameObject> _alreadyHit = new();
-
-        void Awake()
+        private void Awake()
         {
-            if (hitbox == null)
-                hitbox = GetComponent<Collider2D>();
-
+            if (hitbox == null) hitbox = GetComponent<Collider2D>();
             hitbox.isTrigger = true;
-            hitbox.enabled = false;
+            EndHit();
         }
-
-        public void EnableHitbox(float damage, float knockbackForce = 2f, float hitStopDuration = 0.05f, float cameraShakeIntensity = 0.05f)
+        public void BeginHit(float amount, GameObject source)
         {
-            Debug.Log($"[Hitbox] Enabled with {damage} dmg, KB: {knockbackForce}, HitStop: {hitStopDuration}, Shake: {cameraShakeIntensity}");
-            _damage = damage;
-            _knockbackForce = knockbackForce;
-            _hitStopDuration = hitStopDuration;
-            _cameraShakeIntensity = cameraShakeIntensity;
-            _alreadyHit.Clear();
+            if (!isActiveAndEnabled || source == null || hitbox == null) return;
+            attacker = source;
+            owner = source.GetComponentInParent<ICombatant>();
+            damage = amount;
+            alreadyHit.Clear();
+            active = true;
             hitbox.enabled = true;
+            Physics2D.SyncTransforms();
+            var filter = new ContactFilter2D { useTriggers = true };
+            filter.SetLayerMask(targetLayers);
+            hitbox.Overlap(filter, overlaps);
+            foreach (var other in overlaps) TryHit(other);
         }
-
-        public void DisableHitbox()
+        public void EndHit()
         {
-            Debug.Log("[Hitbox] Disabled");
-            hitbox.enabled = false;
-            _alreadyHit.Clear();
+            active = false;
+            if (hitbox != null) hitbox.enabled = false;
+            alreadyHit.Clear();
         }
-
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnDisable() => EndHit();
+        private void OnTriggerEnter2D(Collider2D other) => TryHit(other);
+        private void TryHit(Collider2D other)
         {
-            if (!other.CompareTag("Enemy")) return;
-            if (_alreadyHit.Contains(other.gameObject)) return;
-
-            _alreadyHit.Add(other.gameObject);
-
-            ICombatant damageable = other.GetComponent<ICombatant>();
-            if (damageable != null)
+            if (!active || other == null || attacker == null) return;
+            if ((targetLayers.value & (1 << other.gameObject.layer)) == 0) return;
+            if (other.transform.IsChildOf(attacker.transform)) return;
+            var target = other.GetComponentInParent<ICombatant>();
+            if (target == null || ReferenceEquals(target, owner)) return;
+            if (!alreadyHit.Add(target)) return;
+            target.TakeDamage(new DamageInfo
             {
-                Vector2 hitPoint = other.ClosestPoint(transform.position);
-                Vector2 attackerPos = transform.parent != null ? (Vector2)transform.parent.position : (Vector2)transform.position;
-                Vector2 knockbackDirection = ((Vector2)other.transform.position - attackerPos).normalized;
-
-                DamageInfo damageInfo = new DamageInfo
-                {
-                    damage = _damage,
-                    hitPoint = hitPoint,
-                    knockbackDirection = knockbackDirection,
-                    knockbackForce = _knockbackForce,
-                    hitStopDuration = _hitStopDuration,
-                    cameraShakeIntensity = _cameraShakeIntensity,
-                    attacker = transform.parent != null ? transform.parent.gameObject : gameObject
-                };
-
-                damageable.TakeDamage(damageInfo);
-                Debug.Log($"[Hitbox] Hit {other.gameObject.name} for {damageInfo.damage} dmg");
-
-                CameraController cam = UnityEngine.Camera.main != null ? UnityEngine.Camera.main.GetComponent<CameraController>() : null;
-                if (cam != null && _cameraShakeIntensity > 0f)
-                {
-                    cam.Shake(_hitStopDuration + 0.1f, _cameraShakeIntensity);
-                }
-
-                ApplyHitStop(_hitStopDuration);
-            }
-        }
-
-        private void ApplyHitStop(float duration)
-        {
-            if (duration <= 0f) return;
-            if (_hitStopCoroutine != null)
-                StopCoroutine(_hitStopCoroutine);
-            _hitStopCoroutine = StartCoroutine(HitStopRoutine(duration));
-        }
-
-        private IEnumerator HitStopRoutine(float duration)
-        {
-            float originalTimeScale = Time.timeScale;
-            Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(duration);
-            Time.timeScale = originalTimeScale;
-            _hitStopCoroutine = null;
+                damage = damage,
+                attacker = attacker,
+                hitPoint = other.ClosestPoint(transform.position),
+                knockbackDirection = ((Vector2)other.transform.position - (Vector2)attacker.transform.position).normalized,
+                knockbackForce = Mathf.Max(0f, knockbackForce),
+                hitStopDuration = 0f,
+                cameraShakeIntensity = 0f
+            });
         }
     }
 }

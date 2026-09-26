@@ -1,175 +1,55 @@
-using System.Collections;
-using UnityEngine;
-using GameData;
-
 namespace Domain.Combat
 {
-    // AnimState values:
-    // 0 = idle
-    // 1 = Skill1a, 2 = Skill1b, 3 = Skill1c
-    // 4 = Skill2, 5 = Skill3, 6 = Skill4
-
+    // Attack IDs also match the Animator's AnimState: 1=A, 2=B, 3=C, 4=Skill2, 5=Skill3, 6=Skill4.
     public class SwingSkill : BaseSkill
     {
         protected override float Cooldown => 5f;
-        protected override int AnimState => 1;
+        protected override int AttackId => 1;
+        private int nextAttack = 1;
+        private float activationStart;
+        private float activationEnd;
 
-        private static readonly int[] ComboStates = { 1, 2, 3 };
-        private static readonly float[] ClipDurations = { 0.5f, 0.5f, 0.5f };
-
-        private const float MotionLockTime = 0.5f;
-        private const float RecastWindow = 3f;
-        private const float HitDuration = 0.15f;
-
-        private int _comboStep = 0;
-        private bool _comboActive = false;
-        private bool _canRecast = false;
-        private bool _recastRequested = false;
-
-        public bool IsComboActive => _comboActive;
-
-        public SwingSkill(Animator animator, HitboxController hitbox, PlayerData playerData)
-            : base(animator, hitbox, playerData) { }
-
-        protected override void OnBeforeRoutine()
+        public override void Tick(float now)
         {
-            _comboStep = 0;
-            _comboActive = true;
-            _canRecast = false;
-            _recastRequested = false;
+            if (nextAttack == 1 || now < activationEnd) return;
+            // Expiry starts cooldown at the deadline, even if observed on a later frame.
+            cooldownUntil = activationEnd + Cooldown;
+            nextAttack = 1;
         }
 
-        public void BufferNextCombo()
+        public override bool TryActivate(float now, out int attackId)
         {
-            if (_canRecast)
-                _recastRequested = true;
-        }
-
-        public void CancelCombo()
-        {
-            ResetCombo();
-            IsOnCooldown = false;
-            Animator.SetInteger("AnimState", 0);
-        }
-
-        protected override IEnumerator SkillRoutine()
-        {
-            while (_comboStep < ComboStates.Length)
+            Tick(now);
+            attackId = nextAttack;
+            if (now < cooldownUntil || (nextAttack != 1 && now < activationStart)) return false;
+            if (nextAttack == 3)
             {
-                Animator.SetInteger("AnimState", ComboStates[_comboStep]);
-                Debug.Log($"[SwingSkill] Motion {_comboStep + 1} start");
-
-                Hitbox.EnableHitbox(PlayerData.GetSkillDamage(0));
-                yield return new WaitForSeconds(HitDuration);
-                Hitbox.DisableHitbox();
-
-                float remaining = ClipDurations[_comboStep] - HitDuration;
-                if (remaining > 0f)
-                    yield return new WaitForSeconds(remaining);
-
-                Animator.SetInteger("AnimState", 0);
-
-                bool isLastMotion = _comboStep >= ComboStates.Length - 1;
-
-                yield return new WaitForSeconds(MotionLockTime);
-
-                if (isLastMotion)
-                {
-                    Debug.Log("[SwingSkill] Last motion done, ending combo");
-                    break;
-                }
-
-                _recastRequested = false;
-                _canRecast = true;
-
-                float timer = RecastWindow;
-                while (timer > 0f && !_recastRequested)
-                {
-                    timer -= Time.deltaTime;
-                    yield return null;
-                }
-                _canRecast = false;
-
-                if (!_recastRequested)
-                {
-                    Debug.Log("[SwingSkill] Recast window expired, ending combo");
-                    break;
-                }
-
-                Debug.Log("[SwingSkill] Recast received, advancing combo");
-                _comboStep++;
+                nextAttack = 1;
+                cooldownUntil = now + Cooldown;
             }
-
-            ResetCombo();
-            Animator.SetInteger("AnimState", 0);
-        }
-
-        private void ResetCombo()
-        {
-            _comboStep = 0;
-            _comboActive = false;
-            _canRecast = false;
-            _recastRequested = false;
+            else
+            {
+                nextAttack++;
+                activationStart = now + 0.5f;
+                activationEnd = activationStart + 5f;
+            }
+            return true;
         }
     }
 
     public class BiteSkill : BaseSkill
     {
         protected override float Cooldown => 0.8f;
-        protected override int AnimState => 4;
-
-        private const float WindUp = 0.1f;
-        private const float BiteDuration = 0.2f;
-
-        public BiteSkill(Animator animator, HitboxController hitbox, PlayerData playerData)
-            : base(animator, hitbox, playerData) { }
-
-        protected override IEnumerator SkillRoutine()
-        {
-            yield return new WaitForSeconds(WindUp);
-            Hitbox.EnableHitbox(PlayerData.GetSkillDamage(1));
-            yield return new WaitForSeconds(BiteDuration);
-            Hitbox.DisableHitbox();
-        }
+        protected override int AttackId => 4;
     }
-
     public class RoarSkill : BaseSkill
     {
-        protected override float Cooldown => 5.0f;
-        protected override int AnimState => 5;
-
-        private const float WindUp = 0.25f;
-        private const float RoarDuration = 0.4f;
-
-        public RoarSkill(Animator animator, HitboxController hitbox, PlayerData playerData)
-            : base(animator, hitbox, playerData) { }
-
-        protected override IEnumerator SkillRoutine()
-        {
-            yield return new WaitForSeconds(WindUp);
-            Hitbox.EnableHitbox(PlayerData.GetSkillDamage(2));
-            yield return new WaitForSeconds(RoarDuration);
-            Hitbox.DisableHitbox();
-        }
+        protected override float Cooldown => 5f;
+        protected override int AttackId => 5;
     }
-
     public class JumpSlamSkill : BaseSkill
     {
-        protected override float Cooldown => 3.0f;
-        protected override int AnimState => 6;
-
-        private const float AirTime = 0.45f;
-        private const float LandingDuration = 0.2f;
-
-        public JumpSlamSkill(Animator animator, HitboxController hitbox, PlayerData playerData)
-            : base(animator, hitbox, playerData) { }
-
-        protected override IEnumerator SkillRoutine()
-        {
-            yield return new WaitForSeconds(AirTime);
-            Hitbox.EnableHitbox(PlayerData.GetSkillDamage(3));
-            yield return new WaitForSeconds(LandingDuration);
-            Hitbox.DisableHitbox();
-        }
+        protected override float Cooldown => 3f;
+        protected override int AttackId => 6;
     }
 }
