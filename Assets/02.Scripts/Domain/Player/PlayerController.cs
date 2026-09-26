@@ -51,8 +51,6 @@ namespace Domain.Player
         /// Fired when the player's health reaches 0.
         /// </summary>
         public event Action OnPlayerDied;
-
-        public event Action OnPlayerHPChanged, OnPlayerStaminaChanged;
         #endregion
 
         public float CurrentHealth => currentHealth;

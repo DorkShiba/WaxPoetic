@@ -15,6 +15,11 @@ namespace Domain.Camera
         private float _shakeElapsed = 0f;
         private float _shakeMagnitude = 0f;
 
+        void Start()
+        {
+            target = Systems.Managers.Player.transform;
+        }
+
         public void Shake(float duration, float magnitude)
         {
             _shakeElapsed = duration;

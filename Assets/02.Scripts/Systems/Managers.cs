@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Domain.Items;
+using Domain.Player;
 
 namespace Systems
 {
@@ -49,6 +50,18 @@ namespace Systems
         PoolingManager _pooling = new();
         public static PoolingManager Pooling { get { return Instance?._pooling; } }
         #endregion
+
+        public static PlayerController Player {
+            get
+            {
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    return playerObj.GetComponent<PlayerController>();
+                }
+                return null;
+            }
+        }
 
         void Awake()
         {

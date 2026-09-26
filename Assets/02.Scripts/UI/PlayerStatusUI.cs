@@ -1,25 +1,51 @@
 using Domain.Player;
 using UnityEngine;
 using UnityEngine.UI;
+using Systems;
 
 namespace UI
 {
     public class PlayerStatusUI : BaseUI
     {
+        private enum Sliders
+        {
+            expBar,
+            hpBar,
+            staminaBar
+        }
+
         [SerializeField] private PlayerController player;
-        [SerializeField] private Slider hpBar;
-        [SerializeField] private Slider staminaBar;
+        [SerializeField] private GaugeUI expBar;
+        [SerializeField] private GaugeUI hpBar;
+        [SerializeField] private GaugeUI staminaBar;
 
         private bool started;
 
         public override void Init() {
-            
+            player = Managers.Player;
+            Bind<GaugeUI>(typeof(Sliders));
+            expBar = Get<GaugeUI>((int)Sliders.expBar);
+            hpBar = Get<GaugeUI>((int)Sliders.hpBar);
+            staminaBar = Get<GaugeUI>((int)Sliders.staminaBar);
+
+            if (player == null)
+            {
+                Debug.LogError("[PlayerStatusUI] PlayerController reference is missing.", this);
+                
+            }
+
+            player.OnHealthChanged -= hpBar.SetGauge;
+            player.OnHealthChanged += hpBar.SetGauge;
+            player.OnStaminaChanged -= staminaBar.SetGauge;
+            player.OnStaminaChanged += staminaBar.SetGauge;
         }
 
         private void Awake()
         {
-            ConfigureBar(hpBar);
-            ConfigureBar(staminaBar);
+            Init();
+            hpBar.Configure(0f, player.MaxHealth);
+            staminaBar.Configure(0f, player.MaxStamina);
+            Refresh();
         }
 
         private void OnEnable()
@@ -30,8 +56,6 @@ namespace UI
                 return;
             }
 
-            player.OnHealthChanged += UpdateHealth;
-            player.OnStaminaChanged += UpdateStamina;
             if (started) Refresh();
         }
 
@@ -39,41 +63,20 @@ namespace UI
         {
             // All active scene objects have completed Awake before this initial read.
             started = true;
-            Refresh();
         }
 
         private void OnDisable()
         {
             if (player == null) return;
-            player.OnHealthChanged -= UpdateHealth;
-            player.OnStaminaChanged -= UpdateStamina;
-        }
-
-        private static void ConfigureBar(Slider bar)
-        {
-            if (bar == null) return;
-            bar.interactable = false;
-            bar.navigation = new Navigation { mode = Navigation.Mode.None };
-            bar.minValue = 0f;
-            bar.maxValue = 1f;
-            bar.wholeNumbers = false;
+            player.OnHealthChanged -= hpBar.SetGauge;
+            player.OnStaminaChanged -= staminaBar.SetGauge;
         }
 
         private void Refresh()
         {
             if (player == null) return;
-            UpdateHealth(player.CurrentHealth, player.MaxHealth);
-            UpdateStamina(player.CurrentStamina, player.MaxStamina);
-        }
-
-        private void UpdateHealth(float current, float maximum)
-        {
-            SetBar(hpBar, current, maximum);
-        }
-
-        private void UpdateStamina(float current, float maximum)
-        {
-            SetBar(staminaBar, current, maximum);
+            hpBar.SetGauge(player.CurrentHealth, player.MaxHealth);
+            staminaBar.SetGauge(player.CurrentStamina, player.MaxStamina);
         }
 
         private static void SetBar(Slider bar, float current, float maximum)

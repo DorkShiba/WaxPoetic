@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5062616967072221885}
   - component: {fileID: 4126297644017002690}
+  - component: {fileID: 4715173337486339267}
   m_Layer: 5
   m_Name: gaugeBar
   m_TagString: Untagged
@@ -86,10 +87,23 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.99
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4715173337486339267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335304518792202141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993c2ef703bd65c4bac4b2a2711adb41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI.GaugeUI
+  slider: {fileID: 4126297644017002690}
 --- !u!1 &392667609028102333
 GameObject:
   m_ObjectHideFlags: 0

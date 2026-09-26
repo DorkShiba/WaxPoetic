@@ -25,27 +25,27 @@ Managers는 매니저 총괄뿐 아니라 코루틴 헬퍼의 기능도 합니�
 ## 하위 매니저들
 - 인풋매니저
   - [스크립트](../../Assets/02.Scripts/Systems/InputManager.cs)
-  - [기술문서](./InputManager.md)
+  - [관련 문서](./Input.md)
   - 게임 내 입출력 담당
 - 리소스매니저
   - [스크립트](../../Assets/02.Scripts/Systems/ResourceManager.cs)
-  - [기술문서](./ResourceManager.md)
+  - [기술문서](./ResourceManagement.md)
   - 게임 내 입출력 담당
 - 사운드매니저
   - [스크립트](../../Assets/02.Scripts/Systems/SoundManager.cs)
-  - [기술문서](./SoundManager.md)
+  - [기술문서](./Sound.md)
   - 게임 내 입출력 담당
 - UI매니저
   - [스크립트](../../Assets/02.Scripts/Systems/UIManager.cs)
-  - [기술문서](./UIManager.md)
+  - [기술문서](./UI.md)
   - 게임 내 입출력 담당
 - 애니메이션매니저
   - [스크립트](../../Assets/02.Scripts/Systems/AnimationManager.cs)
-  - [기술문서](./AnimationManager.md)
+  - [기술문서](./Animation.md)
   - 게임 내 입출력 담당
 - 데이터매니저
   - [스크립트](../../Assets/02.Scripts/Systems/DataManager.cs)
-  - [기술문서](./DataManager.md)
+  - [기술문서](./DataManagement.md)
   - 게임 내 입출력 담당
 - 인벤토리
   - [스크립트](../../Assets/02.Scripts/Domain/Items/Inventory.cs)
@@ -53,9 +53,9 @@ Managers는 매니저 총괄뿐 아니라 코루틴 헬퍼의 기능도 합니�
   - 게임 내 입출력 담당
 - 씬매니저
   - [스크립트](../../Assets/02.Scripts/Systems/SceneManager.cs)
-  - [기술문서](./SceneManager.md)
+  - [기술문서](./Scene.md)
   - 게임 내 입출력 담당
 - 풀링매니저
   - [스크립트](../../Assets/02.Scripts/Systems/PoolingManager.cs)
-  - [기술문서](./PoolingManager.md)
+  - [기술문서](./ResourceManagement.md)
   - 게임 내 입출력 담당

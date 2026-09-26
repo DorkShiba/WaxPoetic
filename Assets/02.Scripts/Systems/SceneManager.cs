@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Domain.Player;
 
 namespace Systems
 {
     public class SceneManager
     {
-        public Scene CurrentScene { get; private set; }
+        public Scene CurrentScene { get => currentScene; }
+
+        private Scene currentScene;
+
         public void Init()
         {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -22,6 +27,7 @@ namespace Systems
 
         public void LoadScene(string sceneName, LoadSceneMode mode = LoadSceneMode.Single, Action callback = null)
         {
+            currentScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName);
             Managers.StartCoroutineManager(LoadSceneCoroutine, (sceneName, mode, callback));
         }
 

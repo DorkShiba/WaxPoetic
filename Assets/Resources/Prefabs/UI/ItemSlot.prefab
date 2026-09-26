@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8164555116593179034
+--- !u!1001 &5760705324966267017
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7930312762925366006, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_Name
-      value: CooldownSlot Variant
+      value: ItemSlot1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_Pivot.x
@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.21
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.95
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.02
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchorMin.y
@@ -38,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -74,11 +74,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200.20001
+      value: -160
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -22.5
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 8522350083345282405, guid: bbca814671e69cf41b520c56198e94ab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
