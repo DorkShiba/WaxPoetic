@@ -1,0 +1,171 @@
+{
+  "PlayerEXP": [
+    {
+      "level:int": 0,
+      "required:int": 0,
+      "accumulated:int": 0
+    },
+    {
+      "level:int": 0,
+      "required:int": 0,
+      "accumulated:int": 0
+    },
+    {
+      "level:int": 2,
+      "required:int": 150,
+      "accumulated:int": 150
+    },
+    {
+      "level:int": 3,
+      "required:int": 300,
+      "accumulated:int": 450
+    },
+    {
+      "level:int": 4,
+      "required:int": 450,
+      "accumulated:int": 900
+    },
+    {
+      "level:int": 5,
+      "required:int": 650,
+      "accumulated:int": 1550
+    },
+    {
+      "level:int": 6,
+      "required:int": 800,
+      "accumulated:int": 2350
+    },
+    {
+      "level:int": 7,
+      "required:int": 950,
+      "accumulated:int": 3300
+    },
+    {
+      "level:int": 8,
+      "required:int": 1100,
+      "accumulated:int": 4400
+    },
+    {
+      "level:int": 9,
+      "required:int": 1300,
+      "accumulated:int": 5700
+    },
+    {
+      "level:int": 10,
+      "required:int": 1450,
+      "accumulated:int": 7150
+    },
+    {
+      "level:int": 11,
+      "required:int": 1600,
+      "accumulated:int": 8750
+    },
+    {
+      "level:int": 12,
+      "required:int": 1750,
+      "accumulated:int": 10500
+    },
+    {
+      "level:int": 13,
+      "required:int": 1950,
+      "accumulated:int": 12450
+    },
+    {
+      "level:int": 14,
+      "required:int": 2100,
+      "accumulated:int": 14550
+    },
+    {
+      "level:int": 15,
+      "required:int": 2250,
+      "accumulated:int": 16800
+    },
+    {
+      "level:int": 16,
+      "required:int": 2400,
+      "accumulated:int": 19200
+    },
+    {
+      "level:int": 17,
+      "required:int": 2600,
+      "accumulated:int": 21800
+    },
+    {
+      "level:int": 18,
+      "required:int": 2750,
+      "accumulated:int": 24550
+    },
+    {
+      "level:int": 19,
+      "required:int": 2900,
+      "accumulated:int": 27450
+    },
+    {
+      "level:int": 20,
+      "required:int": 3050,
+      "accumulated:int": 30500
+    },
+    {
+      "level:int": 21,
+      "required:int": 3250,
+      "accumulated:int": 33750
+    },
+    {
+      "level:int": 22,
+      "required:int": 3400,
+      "accumulated:int": 37150
+    },
+    {
+      "level:int": 23,
+      "required:int": 3550,
+      "accumulated:int": 40700
+    },
+    {
+      "level:int": 24,
+      "required:int": 3700,
+      "accumulated:int": 44400
+    },
+    {
+      "level:int": 25,
+      "required:int": 3900,
+      "accumulated:int": 48300
+    },
+    {
+      "level:int": 26,
+      "required:int": 4050,
+      "accumulated:int": 52350
+    },
+    {
+      "level:int": 27,
+      "required:int": 4200,
+      "accumulated:int": 56550
+    },
+    {
+      "level:int": 28,
+      "required:int": 4350,
+      "accumulated:int": 60900
+    },
+    {
+      "level:int": 29,
+      "required:int": 4500,
+      "accumulated:int": 65400
+    },
+    {
+      "level:int": 30,
+      "required:int": 4650,
+      "accumulated:int": 70050
+    }
+  ],
+  "TestSheet": [
+    {
+      "name:string": "hello",
+      "hp:int": 1,
+      "playable:bool": true
+    },
+    {
+      "name:string": "world",
+      "hp:int": 2,
+      "playable:bool": false
+    }
+  ]
+}
