@@ -87,7 +87,7 @@ namespace Systems
                 _input.OnUpdate();
         }
 
-        static void Init()
+        internal static void Init()
         {
             if (s_isQuitting || !Application.isPlaying)
                 return;

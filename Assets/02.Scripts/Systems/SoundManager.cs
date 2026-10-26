@@ -15,7 +15,7 @@ namespace Systems
         private AudioSource[] _audioSources = new AudioSource[(int)SoundType.MaxCount];
         private Dictionary<string, AudioClip> dict_audioClips = new Dictionary<string, AudioClip>();
 
-        public void Init()
+        internal void Init()
         {
             GameObject root = GameObject.Find("@Sound");
             if (root == null)

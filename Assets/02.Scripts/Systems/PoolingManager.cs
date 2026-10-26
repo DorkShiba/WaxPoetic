@@ -9,7 +9,7 @@ namespace Systems
         Dictionary<string, Pool> dict_pool = new Dictionary<string, Pool>();
         Transform _root;
 
-        public void Init() {
+        internal void Init() {
             if (_root == null) {
                 _root = new GameObject { name = "@Pool_Root" }.transform;
                 Object.DontDestroyOnLoad(_root);

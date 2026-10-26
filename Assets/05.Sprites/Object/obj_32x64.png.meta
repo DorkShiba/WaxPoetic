@@ -152,7 +152,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 0
         width: 32
         height: 64
       alignment: 9
@@ -163,7 +163,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf32cf602b0efed46bc4b66746015e88
+      spriteID: b367d2892229c9b4caabba3671ef90b0
       internalID: -649538953
       vertices: []
       indices: 
@@ -174,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 64
+        y: 0
         width: 32
         height: 64
       alignment: 9
@@ -185,102 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f6956787fd84f24f8c0c25f55825cd3
+      spriteID: e35fa5c352f3f474b9bdd55d43bee403
       internalID: 1526747570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obj_desk
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0287064f7ff31f7458c9ca8fb5904d3c
-      internalID: -260838451
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obj_chairRight
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 64
-        width: 32
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4165d712ac0d7684c9db34cea3a61e9a
-      internalID: 229765592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obj_chairFront
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 84f5091823551a4418226323264d7f8f
-      internalID: -1824183339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obj_trashcanEmpty
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.75}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e38d4e455120ae49b43082a6088b659
-      internalID: -1865359119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: obj_trashcanFull
+      name: obj_trashBinEmpty
       rect:
         serializedVersion: 2
         x: 64
@@ -295,14 +207,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ba594c68c7e31a4085e28d24b732338
-      internalID: -666195383
+      spriteID: 96ea7c58971a0d245b3f92e15c1f3e9c
+      internalID: 158378032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: obj_cleaningTools
+      name: obj_trashBinFull
       rect:
         serializedVersion: 2
         x: 96
@@ -317,8 +229,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb6ee1e9941a44a41af7ff2356d9a3bc
-      internalID: -1771588718
+      spriteID: 43d185ca4b3b8c24cbb968d0eab3b3ed
+      internalID: -549748782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: obj_cleanTools
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2756e3775a2ebae4b8ccd2c00def8e00
+      internalID: 1994209624
       vertices: []
       indices: 
       edges: []
@@ -339,14 +273,11 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      obj_chairFront: -1824183339
-      obj_chairRight: 229765592
       obj_classroomPillar: 1526747570
-      obj_cleaningTools: -1771588718
-      obj_desk: -260838451
+      obj_cleanTools: 1994209624
       obj_hallwayPillar: -649538953
-      obj_trashcanEmpty: -1865359119
-      obj_trashcanFull: -666195383
+      obj_trashBinEmpty: 158378032
+      obj_trashBinFull: -549748782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

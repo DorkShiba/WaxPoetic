@@ -15,7 +15,7 @@ namespace Systems
         private Dictionary<string, Canvas> dict_uiCanvases = new Dictionary<string, Canvas>();
         private Dictionary<string, GameObject> dict_uiPrefabs = new Dictionary<string, GameObject>();
 
-        public void Init()
+        internal void Init()
         {
             // 프리팹 캐싱
             GameObject[] prefabs = Managers.Resource.LoadAll<GameObject>("Prefabs/UI");

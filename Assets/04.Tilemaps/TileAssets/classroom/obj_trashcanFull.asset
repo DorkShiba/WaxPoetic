@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: obj_trashcanFull
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: -666195383, guid: ee7555ed6d29fba488ee1facd68de5bb, type: 3}
+  m_Sprite: {fileID: -549748782, guid: ee7555ed6d29fba488ee1facd68de5bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

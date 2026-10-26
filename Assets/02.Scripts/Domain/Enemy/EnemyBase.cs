@@ -11,7 +11,7 @@ namespace Domain.Enemy
     /// Subclasses define what happens when health is depleted.
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public abstract class EnemyBase : MonoBehaviour, ICombatant
+    public abstract class EnemyBase : Systems.Poolable, ICombatant
     {
         [SerializeField] protected float maxHealth = 1000f;
         [SerializeField] protected float currentHealth;

@@ -14,7 +14,7 @@ namespace Systems
 
         private Scene currentScene;
 
-        public void Init()
+        internal void Init()
         {
             UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
             UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
