@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4502659008564520579, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394159087092783941, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_Name
       value: IT101
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739039118230622210, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6211446968402930524, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 6234874529414256825, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_Color.a
       value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 6433756736106825053, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7488599728023691277, guid: 3bc8f451a568592419ffc92151b5d5f6, type: 3}
       propertyPath: m_Sprite

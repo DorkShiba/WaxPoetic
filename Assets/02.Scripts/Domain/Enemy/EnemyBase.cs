@@ -11,7 +11,7 @@ namespace Domain.Enemy
     /// Subclasses define what happens when health is depleted.
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public abstract class EnemyBase : MonoBehaviour, ICombatant
+    public abstract partial class EnemyBase : MonoBehaviour, ICombatant
     {
         [SerializeField] protected float maxHealth = 1000f;
         [SerializeField] protected float currentHealth;
@@ -24,6 +24,7 @@ namespace Domain.Enemy
 
         protected virtual void Awake()
         {
+            if (animator == null) animator = GetComponent<Animator>();
             if (spriteRenderer == null)
                 spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer != null)
@@ -37,15 +38,19 @@ namespace Domain.Enemy
 
         public virtual void TakeDamage(DamageInfo damageInfo)
         {
+            if (!isActiveAndEnabled || State == EnemyState.Dead) return;
+            bool allowKnockback = currentAttack == null || currentAttack.allowKnockback;
+            bool interrupt = State != EnemyState.Attacking || currentAttack == null || currentAttack.interruptible;
+            if (interrupt) EnterHitState();
             currentHealth -= damageInfo.damage;
-            Debug.Log($"[{GetType().Name}] Took {damageInfo.damage} dmg at point {damageInfo.hitPoint} from {damageInfo.attacker.name}. HP remaining: {currentHealth}/{maxHealth}");
+            Debug.Log($"[{GetType().Name}] Took {damageInfo.damage} dmg at point {damageInfo.hitPoint} from {damageInfo.attacker?.name}. HP remaining: {currentHealth}/{maxHealth}");
 
             // Repeated hits extend the flash without capturing the temporary red color.
             _damageFlashUntil = Time.unscaledTime + 0.15f;
             _isDamageFlashing = true;
 
             // Apply knockback
-            if (damageInfo.knockbackForce > 0f)
+            if (allowKnockback && damageInfo.knockbackForce > 0f)
             {
                 if (_knockbackCoroutine != null)
                     StopCoroutine(_knockbackCoroutine);
@@ -54,6 +59,9 @@ namespace Domain.Enemy
 
             if (currentHealth <= 0f)
             {
+                CancelAttack();
+                StopHitRoutine();
+                State = EnemyState.Dead;
                 Die();
             }
         }
@@ -74,6 +82,11 @@ namespace Domain.Enemy
 
         protected virtual void OnDisable()
         {
+            CancelAttack();
+            StopHitRoutine();
+            if (_knockbackCoroutine != null) StopCoroutine(_knockbackCoroutine);
+            _knockbackCoroutine = null;
+            if (State != EnemyState.Dead) State = EnemyState.Idle;
             RestoreFlashColor();
         }
 
