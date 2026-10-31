@@ -31,7 +31,7 @@ namespace Domain.Enemy
                 Debug.LogError($"[{GetType().Name}] Missing attack state: {pattern.animatorState}", this);
                 return false;
             }
-            StopKnockback();
+            hitReaction?.CancelKnockback();
             currentAttack = pattern;
             State = EnemyState.Attacking;
             animator.SetBool("IsMoving", false);
@@ -165,10 +165,6 @@ namespace Domain.Enemy
             if (hitRoutine != null) StopCoroutine(hitRoutine);
             hitRoutine = null;
         }
-        private void StopKnockback()
-        {
-            if (_knockbackCoroutine != null) StopCoroutine(_knockbackCoroutine);
-            _knockbackCoroutine = null;
-        }
+
     }
 }

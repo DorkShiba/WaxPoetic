@@ -24,6 +24,7 @@ namespace Domain.Player
         [SerializeField] private LayerMask npcLayer;  // inspector에서 NPC로 지정
         [SerializeField] private LayerMask itemLayer; // inspector에서 item으로 지정
         [SerializeField] private Animator animator;   // 애니메이터 참조
+        [SerializeField] private HitReactionController hitReaction;
 
         private DashController _dashController;
         private Rigidbody2D _rb;
@@ -59,12 +60,14 @@ namespace Domain.Player
         public float MaxStamina => maxStamina;
         // Hook this up to your damage system later —
         // when true, incoming attacks should be ignored
-        public bool IsInvincible => _dashController != null && _dashController.IsDashing;
+        public bool IsInvincible => (_dashController != null && _dashController.IsDashing)
+                                  || (hitReaction != null && hitReaction.IsInvincible);
 
         void Awake()
         {
             _dashController = GetComponent<DashController>();
             _rb = GetComponent<Rigidbody2D>();
+            if (hitReaction == null) hitReaction = GetComponent<HitReactionController>();
 
             if (playerData != null)
             {
@@ -117,6 +120,8 @@ namespace Domain.Player
         void FixedUpdate()
         {
             if (_dashController != null && _dashController.IsDashing) return;
+            // Block movement input while being knocked back.
+            if (hitReaction != null && hitReaction.IsKnockedBack) return;
 
             // 물리 연산을 통한 이동 (떨림 현상 방지)
             float speed = playerData != null ? playerData.Spd : 5f;
@@ -177,6 +182,8 @@ namespace Domain.Player
             OnHealthChanged?.Invoke(currentHealth, maxHealth);
             Debug.Log($"[PlayerController] Took {damageInfo.damage} damage from {damageInfo.attacker?.name}. HP: {currentHealth}/{maxHealth}");
 
+            hitReaction?.OnHit(damageInfo);
+
             if (currentHealth <= 0)
             {
                 Die();
@@ -186,6 +193,7 @@ namespace Domain.Player
         private void Die()
         {
             Debug.Log("[PlayerController] Player died!");
+            hitReaction?.OnDie();
             OnPlayerDied?.Invoke();
         }
 
