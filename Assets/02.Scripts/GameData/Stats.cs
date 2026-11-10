@@ -8,17 +8,15 @@ namespace GameData
     {
         #region Fields
         [SerializeField] internal int level;
-        [SerializeField] internal int maxHP;
-        [SerializeField] internal int attackPower;  // 공격력
-        [SerializeField] internal int defensePower;  // 물리 방어
-        [SerializeField] internal int spDefensePower;  // 특수 방어
+        [SerializeField] internal float maxHP;
+        [SerializeField] internal float attackPower;  // 공격력
+        [SerializeField] internal float defensePower;  // 물리 방어
         [SerializeField] [Range(0, 100)]
         internal float critRate;  // 치명타 확률
         [SerializeField] internal float critDamage; // 치명타 피해량 (기존 공격력에 몇 배인지)
-        [SerializeField] internal float speed;  // 속도
+        [SerializeField] internal float hpRegen;  // 초당 체력 회복량
         [SerializeField] internal float attackSpeed;  // 공격 속도
-        [SerializeField] internal int hpRegen;  // 초당 체력 회복량
-        [SerializeField] internal float jumpPower;  // 점프력
+        [SerializeField] internal float speed;  // 속도
         #endregion
     }
 
@@ -27,9 +25,9 @@ namespace GameData
     {
         #region Fields
         [SerializeField] internal EntityStat commonStat;
-        [SerializeField] internal int exp;  // 경험치
-        [SerializeField] internal int maxStamina;  // 최대 스태미너
-        [SerializeField] internal int staminaRegen;  // 초당 스태미너 회복량
+        [SerializeField] internal float exp;  // 경험치
+        [SerializeField] internal float maxStamina;  // 최대 스태미너
+        [SerializeField] internal float staminaRegen;  // 초당 스태미너 회복량
         #endregion
     }
 

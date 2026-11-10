@@ -25,17 +25,16 @@ namespace GameData
         #region Properties
         public PlayerStat PlayerStat => playerStat;
         public int Level => playerStat.commonStat.level;
-        public int MaxHP => PlayerStat.commonStat.maxHP;
-        public int MaxStamina => playerStat.maxStamina;
-        public int AtkPower => PlayerStat.commonStat.attackPower;
-        public int DfsPower => PlayerStat.commonStat.defensePower;
-        public int SpdPower => playerStat.commonStat.spDefensePower;
+        public float MaxHP => PlayerStat.commonStat.maxHP;
+        public float MaxStamina => playerStat.maxStamina;
+        public float AtkPower => PlayerStat.commonStat.attackPower;
+        public float DfsPower => PlayerStat.commonStat.defensePower;
         public float CritRate => playerStat.commonStat.critRate;
         public float CritDamage => playerStat.commonStat.critDamage;
         public float Spd => playerStat.commonStat.speed;
         public float AtkSpd => playerStat.commonStat.attackSpeed;
-        public int HpRegen => playerStat.commonStat.hpRegen;
-        public int StaminaRegen => playerStat.staminaRegen;
+        public float HpRegen => playerStat.commonStat.hpRegen;
+        public float StaminaRegen => playerStat.staminaRegen;
 
         public Vector2 CurrPosition
         {

@@ -23,7 +23,14 @@ namespace Systems
 
         private GameObject CreateObject() // 오브젝트 생성
         {
-            return Managers.Resource.Instantiate(prefab);
+            GameObject obj = Managers.Resource.Instantiate(prefab);
+            if (!obj.TryGetComponent<Poolable>(out var poolable))
+            {
+                poolable = obj.AddComponent<Poolable>();
+            }
+
+            poolable.Init(this);
+            return obj;
         }
 
         private void ActivatePoolObject(GameObject obj) // 오브젝트 활성화
@@ -63,7 +70,7 @@ namespace Systems
             return ret;
         }
 
-        public void ReleaseObject(GameObject obj)
+        public void Release(GameObject obj)
         {
             if (obj.CompareTag("PoolOverObj"))
             {
