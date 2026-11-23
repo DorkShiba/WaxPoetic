@@ -23,12 +23,14 @@ namespace Domain.Player
         private bool hitStarted;
         private InputManager input;
         private DashController dash;
+        private PlayerController player;
         public bool IsAttacking => activeAttack != 0;
 
         private void Awake()
         {
             if (animator == null) animator = GetComponent<Animator>();
             dash = GetComponent<DashController>();
+            player = GetComponent<PlayerController>();
             skills = new BaseSkill[] { new SwingSkill(), new BiteSkill(), new RoarSkill(), new JumpSlamSkill() };
             hitboxes = new[] { skill1A, skill1B, skill1C, skill2, skill3, skill4 };
         }
@@ -58,6 +60,7 @@ namespace Domain.Player
 
         private void OnAttackPerformed(int skillIndex)
         {
+            if (player != null && player.IsHitReacting) return;
             if (!isActiveAndEnabled || IsAttacking || (dash != null && dash.IsDashing)) return;
             if (skillIndex < 0 || skillIndex >= skills.Length) return;
             if (animator == null || playerData == null)

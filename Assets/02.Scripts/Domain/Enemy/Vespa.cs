@@ -141,7 +141,8 @@ namespace Domain.Enemy
             if (target == null || !target.gameObject.activeInHierarchy)
                 return targetAcquired = false;
             float distance = Vector2.Distance(transform.position, target.position);
-            return targetAcquired = distance <= detectionRadius;
+            float radius = targetAcquired ? Mathf.Max(detectionRadius, disengageRadius) : detectionRadius;
+            return targetAcquired = distance <= radius;
         }
 
         private Vector2 GetApproachDestination()

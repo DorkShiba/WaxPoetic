@@ -52,6 +52,7 @@ namespace Domain.Player
 
         private void OnAvoid()
         {
+            if (_playerController != null && _playerController.IsHitReacting) return;
             if (_isDashing) return; // already dashing
 
             const float staminaCost = 10f;

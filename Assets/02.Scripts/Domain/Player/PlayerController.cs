@@ -27,6 +27,10 @@ namespace Domain.Player
         [SerializeField] private HitReactionController hitReaction;
 
         private DashController _dashController;
+        private AttackController _attackController;
+        private Coroutine _hitRoutine;
+        private static readonly int HitState = Animator.StringToHash("Base Layer.Player_HIT");
+        public bool IsHitReacting { get; private set; }
         private Rigidbody2D _rb;
         private IInteractable _currentInteractableTarget;
 
@@ -66,6 +70,8 @@ namespace Domain.Player
         void Awake()
         {
             _dashController = GetComponent<DashController>();
+            _attackController = GetComponent<AttackController>();
+            if (animator == null) animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody2D>();
             if (hitReaction == null) hitReaction = GetComponent<HitReactionController>();
 
@@ -101,6 +107,7 @@ namespace Domain.Player
         // Update is called once per frame
         void Update()
         {
+            if (IsHitReacting) return;
             // Block movement input while dashing (DashController handles position during dash)
             if (_dashController != null && _dashController.IsDashing) return;
 
@@ -119,6 +126,7 @@ namespace Domain.Player
 
         void FixedUpdate()
         {
+            if (IsHitReacting) return;
             if (_dashController != null && _dashController.IsDashing) return;
             // Block movement input while being knocked back.
             if (hitReaction != null && hitReaction.IsKnockedBack) return;
@@ -183,11 +191,53 @@ namespace Domain.Player
             Debug.Log($"[PlayerController] Took {damageInfo.damage} damage from {damageInfo.attacker?.name}. HP: {currentHealth}/{maxHealth}");
 
             hitReaction?.OnHit(damageInfo);
+            PlayHitReaction();
 
             if (currentHealth <= 0)
             {
                 Die();
             }
+        }
+
+        private void PlayHitReaction()
+        {
+            if (animator == null || !animator.isActiveAndEnabled || !animator.HasState(0, HitState)) return;
+            if (_hitRoutine != null) StopCoroutine(_hitRoutine);
+            IsHitReacting = true;
+            moveDirection = Vector2.zero;
+            _attackController?.CancelAttack();
+            animator.SetInteger("AnimState", 0);
+            animator.SetBool("isMove", false);
+            animator.Play(HitState, 0, 0f);
+            _hitRoutine = StartCoroutine(WaitForHitReaction());
+        }
+
+        private IEnumerator WaitForHitReaction()
+        {
+            // Allow the Animator to evaluate the requested state before checking it.
+            yield return null;
+            while (animator != null && animator.isActiveAndEnabled)
+            {
+                var state = animator.GetCurrentAnimatorStateInfo(0);
+                if (state.fullPathHash != HitState || state.normalizedTime >= 1f) break;
+                yield return null;
+            }
+            if (animator != null && animator.isActiveAndEnabled)
+            {
+                moveDirection = Managers.Input != null ? Managers.Input.MoveDirection : Vector2.zero;
+                animator.SetBool("isMove", moveDirection != Vector2.zero);
+                animator.Play(moveDirection != Vector2.zero ? "Base Layer.Player_MOVE" : "Base Layer.Player_IDLE", 0, 0f);
+            }
+            IsHitReacting = false;
+            _hitRoutine = null;
+        }
+
+        private void OnDisable()
+        {
+            if (_hitRoutine != null) StopCoroutine(_hitRoutine);
+            _hitRoutine = null;
+            IsHitReacting = false;
+            moveDirection = Vector2.zero;
         }
 
         private void Die()
