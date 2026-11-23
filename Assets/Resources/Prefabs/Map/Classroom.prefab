@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2237865578137908587}
   - component: {fileID: 4645732673560434477}
   - component: {fileID: 5542616943117443301}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: wallfront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2490,9 +2490,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3244858511760882189, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4955212376388081487, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6608438809983470739, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
       propertyPath: m_Name
       value: obj_door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608438809983470739, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2555,6 +2567,10 @@ PrefabInstance:
     - target: {fileID: 6608438809983470739, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
       propertyPath: m_Name
       value: obj_door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608438809983470739, guid: 486f29d92cc034b4fbc223276f4c127f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
